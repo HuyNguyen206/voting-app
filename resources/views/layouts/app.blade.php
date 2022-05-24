@@ -45,15 +45,44 @@
           </div>
       </header>
            <main class="container mx-auto max-w-custom flex">
-               <div class="w-70 mr-5">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus, alias autem consectetur cum, dolor enim id itaque iure nulla, odio quam quasi quia recusandae repellat repellendus soluta temporibus voluptas? Ad aliquam asperiores consequatur, deleniti dicta dolor dolore dolorem ducimus eaque eius error eum explicabo illum in incidunt ipsa iste mollitia necessitatibus neque non numquam officia recusandae similique suscipit tempore totam voluptatibus! Adipisci amet beatae consectetur, delectus dolores eius, enim facere ipsa, iste iusto magni mollitia neque reiciendis velit voluptate voluptates voluptatum. A delectus ea necessitatibus reprehenderit temporibus! Atque ducimus earum itaque maiores nemo praesentium reprehenderit sed vel vitae voluptatem.
+               <div class="w-70 mr-5 bg-gray-background px-2 py-4 ">
+                   <form action="" class="bg-white px-2 py-4 rounded-xl shadow-md">
+                       <div class="text-center">
+                           <h4 class="font-semibold text-xl">Add an idea</h4>
+                           <p class="mt-2">Let us know what you would like and we will tak a look over!</p>
+                       </div>
+                        <div class="space-y-4 mt-6">
+                            <input placeholder="Your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" type="text" name="" id="">
+                            <select class="w-full px-2 py-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="">
+                                <option value="">Category</option>
+                                <option value="1">Check 1</option>
+                                <option value="2">Check 1</option>
+                                <option value="3">Check 1</option>
+                            </select>
+                            <textarea placeholder="Describe your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="" cols="30" rows="10"></textarea>
+                        <div class="flex items-center justify-between">
+                            <input type="file" name="" style="display: none" id="attachFile">
+                            <label for="attachFile" class="flex items-center cursor-pointer px-6 py-4 bg-gray-100 rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                </svg><span>Attach</span></label>
+                             <button class="px-6 py-4 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white">Submit</button>
+                        </div>
+                        </div>
+
+                   </form>
 
                </div>
                <div class="w-175">
                    <nav class="flex items-center justify-between text-xs ">
                        <ul class="flex uppercase font-semibold space-x-10 border-b-4 pb-3">
                            <li><a href="" class="border-b-4 border-blue pb-3">All ideas (87)</a></li>
-                           <li><a href="" class="text-gray-400 transition duration-75 ease-in border-b-4 pb-3 hover:border-blue">All ideas (87)</a></li>
+                           <li><a href="" class="text-gray-400 transition duration-75 ease-in border-b-4 pb-3 hover:border-blue">Considering (87)</a></li>
+                           <li><a href="" class="text-gray-400 transition duration-75 ease-in border-b-4 pb-3 hover:border-blue">In Progress (87)</a></li>
+                       </ul>
+
+                       <ul class="flex uppercase font-semibold space-x-10 border-b-4 pb-3">
+                           <li><a href="" class="border-b-4 border-blue pb-3">Implemented (87)</a></li>
+                           <li><a href="" class="text-gray-400 transition duration-75 ease-in border-b-4 pb-3 hover:border-blue">Closed (87)</a></li>
                        </ul>
                    </nav>
                    <div class="mt-8">
