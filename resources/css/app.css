@@ -1,3 +1,40 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.comments-container:before {
+    background: #a4aeba;
+    content: "";
+    display: block;
+    height: 100%;
+    left: -23px;
+    position: absolute;
+    top: 0;
+    width: 3px;
+}
+
+.comment:before {
+    background: #a1acba;
+    content: "";
+    display: block;
+    height: 3px;
+    left: -23px;
+    position: relative;
+    top: 57px;
+    width: 14px;
+}
+
+.is-admin::before{
+    width: 30px;
+    height: 30px;
+    border-radius: 38px;
+    border: 7px solid white;
+    box-shadow: 4px 4px 15px 0 rgba(36, 37, 38, 0.08);
+    left: -41px;
+    background: theme('colors.purple');
+    opacity: 1;
+}
+
+ [x-cloak] {
+     display: none !important;
+ }
