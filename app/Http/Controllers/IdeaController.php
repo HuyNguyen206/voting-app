@@ -15,7 +15,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
-       $ideas = Idea::with('user')->paginate(5);
+       $ideas = Idea::with('user')->paginate(Idea::PAGINATION_COUNT);
        return view('ideas.index', compact('ideas'));
     }
 
@@ -48,8 +48,6 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        dump(123);
-        dump(456);
         return view('ideas.show', compact('idea'));
     }
 
