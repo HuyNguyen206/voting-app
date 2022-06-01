@@ -44,7 +44,7 @@
                 </div>
                 <div class="lg:ml-4 flex flex-col lg:flex-row px-5 py-4 lg:py-8">
                     <a href="" class="flex-none">
-                        <img src="{{asset('images/avatar.png')}}" class="w-14 h-14 rounded-xl mr-4" alt="">
+                        <img src="{{$idea->user->avatar()}}" class="w-14 h-14 rounded-xl mr-4" alt="">
                     </a>
                     <div>
                         <h4 class="mb-4 font-semibold text-xl">

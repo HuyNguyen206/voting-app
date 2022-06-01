@@ -17,7 +17,7 @@
 {{--            </div>--}}
             <div class="ml-4 flex px-5 py-8">
                 <a href="" class="flex-none">
-                    <img src="http://voting-app-local.test/images/avatar.png" class="w-14 h-14 rounded-xl mr-4" alt="">
+                    <img src="{{$idea->user->avatar()}}" class="w-14 h-14 rounded-xl mr-4" alt="">
                 </a>
                 <div>
                     <h4 class="mb-4 font-semibold text-xl">
