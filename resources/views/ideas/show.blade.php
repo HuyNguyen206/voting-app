@@ -43,7 +43,7 @@
             </div>
             <div class="flex flex-col lg:flex-row " x-data="{showDialog:false}">
                 <div class="lg:flex-row flex space-x-6">
-                    <button class="h-14 px-6 py-2 font-semibold uppercase rounded-xl bg-gray-300">open</button>
+                    <button class="h-14 px-6 py-2 font-semibold uppercase rounded-xl {{$idea->status->class}}">{{$idea->status->name}}</button>
                     <button @click="showDialog = !showDialog"
                             class="h-14 relative flex items-center px-6 py-2 font-semibold uppercase rounded-xl text-gray-400 bg-gray-300">
                     <span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

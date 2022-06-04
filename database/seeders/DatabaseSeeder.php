@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'huy'
         ]);
         Category::factory(10)->create();
+       $this->call(StatusSeeder::class);
         Idea::factory(5)->create([
             'user_id' => $huy->id
         ]);

@@ -46,33 +46,24 @@
           </div>
       </header>
            <main class="container mx-auto max-w-custom lg:flex-row flex flex-col">
-               <div>
-                   <div class="w-70 lg:mr-5 mx-auto bg-gray-background px-2 py-4 lg:sticky lg:top-9">
-                       <form action="" class="bg-white px-2 py-4 rounded-xl shadow-md">
+               <div class="bg-gray-background">
+                   <div class="bg-white px-2 py-4 rounded-xl shadow-md mt-6 w-70 lg:mr-5 mx-auto px-2 flex flex-col items-center py-4 lg:sticky lg:top-9">
                            <div class="text-center">
                                <h4 class="font-semibold text-xl">Add an idea</h4>
+                               @auth
                                <p class="mt-2">Let us know what you would like and we will tak a look over!</p>
+                               @else
+                               Please login to add idea
+                               @endauth
                            </div>
-                           <div class="space-y-4 mt-6">
-                               <input placeholder="Your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" type="text" name="" id="">
-                               <select class="w-full px-2 py-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="">
-                                   <option value="">Category</option>
-                                   <option value="1">Check 1</option>
-                                   <option value="2">Check 1</option>
-                                   <option value="3">Check 1</option>
-                               </select>
-                               <textarea placeholder="Describe your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="" cols="30" rows="10"></textarea>
-                               <div class="flex items-center justify-between">
-                                   <input type="file" name="" style="display: none" id="attachFile">
-                                   <label for="attachFile" class="flex items-center cursor-pointer px-6 py-4 bg-gray-100 rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                                       </svg><span>Attach</span></label>
-                                   <button class="px-6 py-4 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white">Submit</button>
-                               </div>
+                       @auth
+                       <livewire:create-idea/>
+                       @else
+                           <div class="flex flex-col justify-center">
+                               <a style="display: inline-block" class="mt-6 px-6 py-4 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white" href="{{route('login')}}">Login</a>
+                               <a style="display: inline-block" class="mt-6 px-6 py-4 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white" href="{{route('register')}}">Register</a>
                            </div>
-
-                       </form>
-
+                       @endauth
                    </div>
                </div>
 
