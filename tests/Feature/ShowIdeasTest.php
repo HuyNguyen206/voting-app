@@ -19,6 +19,9 @@ class ShowIdeasTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee($ideaOne->title);
         $response->assertSee($ideaTwo->title);
+
+        $response->assertSee($ideaOne->category->name);
+        $response->assertSee($ideaTwo->category->name);
     }
 
     public function test_show_correct_idea_on_page()
@@ -27,6 +30,7 @@ class ShowIdeasTest extends TestCase
         $response = $this->get(route('ideas.show', $idea->slug));
         $response->assertSuccessful();
         $response->assertSee($idea->title);
+        $response->assertSee($idea->category->name);
     }
 
     public function test_ideas_pagination_works()
