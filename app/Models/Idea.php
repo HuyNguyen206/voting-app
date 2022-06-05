@@ -65,4 +65,9 @@ class Idea extends Model
 //                return 'bg-gray-300';
 //        }
 //    }
+
+    public function votedUsers()
+    {
+        return $this->belongsToMany(User::class, 'votes',  'idea_id', 'user_id')->withTimestamps();
+    }
 }

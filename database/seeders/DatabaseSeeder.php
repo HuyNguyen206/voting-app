@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
             'user_id' => $huy->id
         ]);
         Idea::factory(30)->create();
+        $this->call(VoteSeeder::class);
     }
 }

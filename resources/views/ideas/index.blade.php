@@ -38,7 +38,7 @@
             <div class="flex">
                 <div class="hidden lg:block border-r border-gray-100 px-5 py-8">
                     <div class="text-center">
-                        <div class="font-semibold text-2xl">12</div>
+                        <div class="font-semibold text-2xl">{{$idea->votedUsersCount}}</div>
                         <div class="text-gray-500">Votes</div>
                     </div>
                     <div class=" mt-8">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="lg:hidden flex justify-start items-center border-r border-gray-100 py-8">
                     <div class="text-center">
-                        <div class="font-semibold text-2xl">12</div>
+                        <div class="font-semibold text-2xl">{{$idea->votedUsersCount}}</div>
                         <div class="text-gray-500">Votes</div>
                     </div>
                     <div>

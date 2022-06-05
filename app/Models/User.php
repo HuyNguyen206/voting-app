@@ -60,4 +60,9 @@ class User extends Authenticatable
         $number = is_numeric($check = strtolower($this->email[0])) ? ord($check) - 21 : ord($check) - 96;
         return "s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-$number.png?ssl=1";
     }
+
+    public function votedIdeas()
+    {
+        return $this->belongsToMany(Vote::class, 'votes', 'user_id', 'idea_id')->withTimestamps();
+    }
 }
