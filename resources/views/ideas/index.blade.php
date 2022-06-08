@@ -27,16 +27,9 @@
         </div>
     </div>
     <div class="ideas-container  duration-150 space-y-6 my-6">
-        @php
-        $idea = $ideas->first();
-        @endphp
-{{--        <livewire:idea-show :idea="$idea"/>--}}
-{{--        @foreach($ideas as $idea)--}}
-{{--            <livewire:idea-index />--}}
-{{--        <livewire:idea-show :idea="$idea"/>--}}
-        <livewire:idea-test/>
-{{--        @livewire('idea-test')--}}
-{{--        @endforeach--}}
+        @foreach($ideas as $idea)
+            <livewire:idea-index :idea="$idea"/>
+        @endforeach
         {!! $ideas->links() !!}
     </div>
 
