@@ -61,6 +61,7 @@
                     </div>
                     <div>
                         <button
+                            wire:click="vote"
                             class="@if($isVoted) border-gray-400 bg-blue text-white @endif px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
                             {{$isVoted ? 'Voted' : 'Vote'}}
                         </button>
@@ -154,6 +155,7 @@
             </div>
             <div>
                 <button
+                    wire:click="vote"
                     class="@if($isVoted) border-gray-400 bg-blue text-white @endif px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
                    {{$isVoted ? 'Voted' : 'Vote'}}
                 </button>

@@ -69,6 +69,16 @@ class VoteShowPageTest extends TestCase
         ])->assertSee('Voted');
     }
 
+    public function test_user_not_login_redirect_to_login_page_when_click_on_vote()
+    {
+        $user = User::factory()->create();
+        $idea = Idea::factory()->create();
+        $idea->votedUsers()->attach($user->id);
+        Livewire::test(IdeaShow::class, [
+           'idea' => $idea
+        ])->call('vote')->assertRedirect(route('login'));
+    }
+
 
 
 }
