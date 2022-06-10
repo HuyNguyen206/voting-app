@@ -58,5 +58,17 @@ class VoteShowPageTest extends TestCase
     }
 
 
+    public function test_user_login_can_see_voted_if_he_already_vote_that_idea()
+    {
+
+        $user = User::factory()->create();
+        $idea = Idea::factory()->create();
+        $idea->votedUsers()->attach($user->id);
+        Livewire::actingAs($user)->test(IdeaShow::class, [
+           'idea' => $idea
+        ])->assertSee('Voted');
+    }
+
+
 
 }

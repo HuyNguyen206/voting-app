@@ -70,4 +70,12 @@ class Idea extends Model
     {
         return $this->belongsToMany(User::class, 'votes',  'idea_id', 'user_id')->withTimestamps();
     }
+
+    public function isVotedByUser(?int $userId):bool
+    {
+        if (!$userId) {
+            return false;
+        }
+        return $this->votedUsers()->where('users.id',$userId)->exists();
+    }
 }

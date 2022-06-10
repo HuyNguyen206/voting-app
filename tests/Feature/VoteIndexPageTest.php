@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\IdeaIndex;
+use App\Http\Livewire\IdeaShow;
 use App\Models\Idea;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,5 +39,14 @@ class VoteIndexPageTest extends TestCase
         Livewire::test(IdeaIndex::class, [
             'idea' => $idea->loadCount('votedUsers as votedUsersCount')
         ])->assertSeeHtml('<div class="font-semibold text-2xl">15</div>');
+    }
+
+    public function test_user_login_can_see_voted_if_he_already_vote_that_idea()
+    {
+
+        $user = User::factory()->create();
+        $idea = Idea::factory()->create();
+        $idea->votedUsers()->attach($user->id);
+        $this->actingAs($user)->get(route('ideas.index'))->assertSee('Voted');
     }
 }

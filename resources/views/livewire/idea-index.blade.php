@@ -15,8 +15,8 @@
                 </div>
                 <div class=" mt-8">
                     <button
-                        class="border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                        Vote
+                        class="@if($idea->isVoted) border-gray-400 bg-blue text-white @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
+                        {{$idea->isVoted ? 'Voted' : 'Vote'}}
                     </button>
                 </div>
             </div>
@@ -64,8 +64,8 @@
                 </div>
                 <div>
                     <button
-                        class="border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                        Vote
+                        class="@if($idea->isVoted) border-gray-400 bg-blue text-white @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
+                        {{$idea->isVoted ? 'Voted' : 'Vote'}}
                     </button>
                 </div>
             </div>

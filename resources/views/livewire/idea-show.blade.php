@@ -57,12 +57,12 @@
                 <div class="lg:hidden flex items-center border-r border-gray-100 px-5 py-8">
                     <div class="text-center mr-2">
                         <div class="font-semibold text-2xl">{{$idea->votedUsers()->count()}}</div>
-                        <div class="text-gray-500">Votes</div>
+                        <div class="{{$isVoted ? 'text-blue' : 'text-gray-500'}} ">Votes</div>
                     </div>
                     <div>
                         <button
-                            class="px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                            Vote
+                            class="@if($isVoted) border-gray-400 bg-blue text-white @endif px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
+                            {{$isVoted ? 'Voted' : 'Vote'}}
                         </button>
                     </div>
                 </div>
@@ -150,12 +150,12 @@
         <div class="hidden lg:flex justify-end items-center border-r border-gray-100 px-5 py-8">
             <div class="text-center mr-2">
                 <div class="font-semibold text-2xl">{{$idea->votedUsers()->count()}}</div>
-                <div class="text-gray-500">Votes</div>
+                <div class="{{$isVoted ? 'text-blue' : 'text-gray-500'}}">Votes</div>
             </div>
             <div>
                 <button
-                    class="px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                    Vote
+                    class="@if($isVoted) border-gray-400 bg-blue text-white @endif px-8 h-10 border-gray-200 hover:border-gray-400 hover:bg-blue transition duration-150 hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
+                   {{$isVoted ? 'Voted' : 'Vote'}}
                 </button>
             </div>
         </div>
