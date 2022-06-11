@@ -16,15 +16,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        $userId = auth()->id();
-        $ideas = Idea::with(['user', 'category', 'status'])
-           ->withCount('votedUsers as votedUsersCount')
-           ->addSelect([
-               'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($userId)
-           ])
-           ->latest()
-           ->paginate(Idea::PAGINATION_COUNT);
-       return view('ideas.index', compact('ideas'));
+       return view('ideas.index');
     }
 
     /**

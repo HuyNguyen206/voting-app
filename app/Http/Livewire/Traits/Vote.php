@@ -11,6 +11,6 @@ trait Vote {
         }
         $this->idea->votedUsers()->toggle($userId);
         $this->idea->loadCount('votedUsers as votedUsersCount');
-        $this->idea->isVoted = $this->idea->isVotedByUser($userId);
+        $this->isVoted = $this->idea->isVotedByUser($userId);
     }
 }

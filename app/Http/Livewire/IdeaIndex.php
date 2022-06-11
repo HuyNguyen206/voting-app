@@ -10,10 +10,12 @@ class IdeaIndex extends Component
 {
     use Vote;
     public $idea;
+    public $isVoted;
 
     public function mount($idea)
     {
         $this->idea = $idea;
+        $this->isVoted =$idea->isVoted;
     }
     public function render()
     {

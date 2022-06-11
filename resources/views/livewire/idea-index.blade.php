@@ -1,11 +1,12 @@
 
 <div>
-    <div x-data @click="
-        let targetTagName = $event.target.tagName.toLowerCase()
+    <div x-data @click="let targetTagName = $event.target.tagName.toLowerCase();
+        console.log(targetTagName)
         if (['button', 'svg', 'path', 'a'].includes(targetTagName))  {
         return;
         }
-        $refs.show_{{$idea->id}}.click()"
+        $refs.show_{{$idea->id}}.click()
+"
          class="idea-container cursor-pointer hover:shadow-md transition bg-white rounded-xl">
         <div class="flex">
             <div class="hidden lg:block border-r border-gray-100 px-5 py-8">
@@ -16,8 +17,8 @@
                 <div class=" mt-8">
                     <button
                         wire:click="vote"
-                        class="@if($idea->isVoted) border-gray-400 bg-blue text-white @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                        {{$idea->isVoted ? 'Voted' : 'Vote'}}
+                        class="@if($isVoted) border-gray-400 bg-blue text-white @else bg-gray-300 @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl uppercase">
+                        {{$isVoted ? 'Voted' : 'Vote'}}
                     </button>
                 </div>
             </div>
@@ -66,8 +67,8 @@
                 <div>
                     <button
                         wire:click="vote"
-                        class="@if($idea->isVoted) border-gray-400 bg-blue text-white @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl bg-gray-300 uppercase">
-                        {{$idea->isVoted ? 'Voted' : 'Vote'}}
+                        class="@if($isVoted) border-gray-400 bg-blue text-white @else bg-gray-300 @endif border-gray-200 hover:border-gray-400 w-20 hover:bg-blue transition duration-150 text-xxs hover:text-white px-4 text-md py-2 rounded-xl uppercase">
+                        {{$isVoted ? 'Voted' : 'Vote'}}
                     </button>
                 </div>
             </div>
