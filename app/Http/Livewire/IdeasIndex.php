@@ -31,7 +31,7 @@ class IdeasIndex extends Component
             ->addSelect([
                 'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($userId)
             ])
-            ->when($status !== 'all', function (Builder $builder) use($status) {
+            ->when($status && $status !== 'all', function (Builder $builder) use($status) {
                 $builder->whereHas('status', function (Builder $builder) use($status) {
                     $builder->where('name', Str::of($status)->headline());
                 });
@@ -43,5 +43,6 @@ class IdeasIndex extends Component
     public function updateIdeas($status)
     {
         $this->status = $status;
+//        return $this->redirectRoute('ideas.index', compact('status'));
     }
 }
