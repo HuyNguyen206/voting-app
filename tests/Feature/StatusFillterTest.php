@@ -6,6 +6,7 @@ use App\Http\Livewire\StatusFilters;
 use App\Models\Idea;
 use App\Models\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class StatusFillterTest extends TestCase
@@ -63,5 +64,33 @@ class StatusFillterTest extends TestCase
             ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-purple text-white">Considering</button>', false)
             ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-yellow text-white">In Progress</button>', false)
             ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-red text-white">Closed</button>', false);
+    }
+
+    public function test_show_page_does_not_show_selected()
+    {
+        $consider = Status::factory()->create([
+            'name' => 'Considering',
+            'class' => 'bg-purple text-white'
+        ]);
+       $ideas = Idea::factory(5)->create([
+            'status_id' => $consider
+        ]);
+        $this->get(route('ideas.show', $ideas->first()))
+            ->assertDontSee('font-semibold text-gray-800 border-blue', false);
+
+    }
+
+    public function test_index_page_show_selected()
+    {
+        $consider = Status::factory()->create([
+            'name' => 'Considering',
+            'class' => 'bg-purple text-white'
+        ]);
+       $ideas = Idea::factory(5)->create([
+            'status_id' => $consider
+        ]);
+        $this->get(route('ideas.index'))
+            ->assertSee('font-semibold text-gray-800 border-blue', false);
+
     }
 }

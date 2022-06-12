@@ -1,10 +1,11 @@
 <div>
     <div class="filters flex flex-col lg:flex-row lg:space-x-6">
         <div class="lg:w-1/3 mt-2 lg:mt-0 mx-2 lg:mx-0">
-            <select name="category" id="" class="border-none w-full rounded-xl px-4 px-4">
-                <option value="">Op1</option>
-                <option value="">Op2</option>
-                <option value="">Op3</option>
+            <select wire:change="updateCategory" wire:model="category" name="category" id="" class="border-none w-full rounded-xl px-4 px-4">
+                <option value="">All category</option>
+                @foreach($categories as $category)
+                    <option value="{{$category->slug}}">{{$category->name}}</option>
+                @endforeach
             </select>
         </div>
         <div class="lg:w-1/3 mt-2 lg:mt-0 mx-2 lg:mx-0">

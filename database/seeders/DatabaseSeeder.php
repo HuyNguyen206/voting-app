@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'nguyenlehuyuit@gmail.com',
             'name' => 'huy'
         ]);
-        Category::factory(10)->create();
+        $this->call(CategorySeeder::class);
        $this->call(StatusSeeder::class);
         Idea::factory(5)->create([
             'user_id' => $huy->id

@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\Vote;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -14,15 +16,16 @@ class IdeasIndex extends Component
     use WithPagination;
 
     protected $listeners = ['updateStatusFilter' => 'updateIdeas'];
-    public $status;
-    protected $queryString = ['status'];
+    public $status, $category = null;
+    protected $queryString = ['status', 'category'];
     public function render()
     {
-        $ideas = $this->getIdeas();
-        return view('livewire.ideas-index', compact('ideas'));
+        $categories = Category::all();
+        $ideas = $this->getIdeas($categories);
+        return view('livewire.ideas-index', compact('ideas', 'categories'));
     }
 
-    public function getIdeas()
+    public function getIdeas($categories)
     {
         $userId = auth()->id();
         $status = $this->status;
@@ -32,9 +35,11 @@ class IdeasIndex extends Component
                 'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($userId)
             ])
             ->when($status && $status !== 'all', function (Builder $builder) use($status) {
-                $builder->whereHas('status', function (Builder $builder) use($status) {
-                    $builder->where('name', Str::of($status)->headline());
-                });
+                $statusId = Status::whereName(Str::headline($status))->first()->id;
+                $builder->where('status_id', $statusId);
+            })
+            ->when($this->category, function (Builder $builder) use($categories) {
+                $builder->where('category_id', $categories->pluck('id', 'slug')->get($this->category));
             })
             ->latest()
             ->paginate(Idea::PAGINATION_COUNT);
@@ -43,6 +48,14 @@ class IdeasIndex extends Component
     public function updateIdeas($status)
     {
         $this->status = $status;
+        $this->resetPage();
 //        return $this->redirectRoute('ideas.index', compact('status'));
     }
+
+    public function updateCategory()
+    {
+        $this->emit('updateCategory', $this->category);
+        $this->resetPage();
+    }
+
 }

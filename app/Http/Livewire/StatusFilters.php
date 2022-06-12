@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Status;
 use Illuminate\Support\Facades\Route;
 use Livewire\Component;
@@ -9,7 +10,9 @@ use Livewire\Component;
 class StatusFilters extends Component
 {
     public $status = 'all';
-    protected $queryString = ['status'];
+    public $category = null;
+    protected $queryString = ['status', 'category'];
+    protected $listeners = ['updateCategory'];
 
     public function mount()
     {
@@ -20,7 +23,12 @@ class StatusFilters extends Component
     public function render()
     {
         $statusCount = [];
-        Status::withCount('ideas as count')->get()->each(function ($status) use(&$statusCount){
+        Status::query()->withCount(['ideas as count' => function ($query) {
+            if ($this->category) {
+                $categoryId = Category::whereSlug($this->category)->first()->id;
+                $query->where('category_id', $categoryId);
+            }
+        }])->get()->each(function ($status) use(&$statusCount){
             $statusCount[$status->name] = $status->count;
         });
         $statusCount['All'] = array_sum($statusCount);
@@ -29,12 +37,15 @@ class StatusFilters extends Component
 
     public function updateStatusFilter($status, $isShowPage = false)
     {
-//        dd($isShowPage);
         if ($isShowPage) {
-//            dd(123);
             return $this->redirectRoute('ideas.index', compact('status'));
         }
         $this->emit('updateStatusFilter', $status);
         $this->status = $status;
+    }
+
+    public function updateCategory($category)
+    {
+      $this->category = $category;
     }
 }
