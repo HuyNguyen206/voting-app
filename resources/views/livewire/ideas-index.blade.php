@@ -10,9 +10,9 @@
         </div>
         <div class="lg:w-1/3 mt-2 lg:mt-0 mx-2 lg:mx-0">
             <select name="other_filter" id="" class="border-none w-full rounded-xl px-4 px-4">
-                <option value="">Op1</option>
-                <option value="">Op2</option>
-                <option value="">Op3</option>
+                <option value="">No filter</option>
+                <option value="top_voted">Top voted</option>
+                <option value="my_ideas">My ideas</option>
             </select>
         </div>
         <div class="lg:w-1/3 relative mt-2 lg:mt-0 mx-2 lg:mx-0">

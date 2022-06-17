@@ -16,8 +16,8 @@ class IdeasIndex extends Component
     use WithPagination;
 
     protected $listeners = ['updateStatusFilter' => 'updateIdeas'];
-    public $status, $category = null;
-    protected $queryString = ['status', 'category'];
+    public $status, $category = null, $filter;
+    protected $queryString = ['status', 'category', 'filter'];
     public function render()
     {
         $categories = Category::all();
@@ -27,22 +27,36 @@ class IdeasIndex extends Component
 
     public function getIdeas($categories)
     {
-        $userId = auth()->id();
+        $user = auth()->user();
         $status = $this->status;
-        return Idea::with(['user', 'category', 'status'])
+        $mainQuery = Idea::with(['user', 'category', 'status'])
             ->withCount('votedUsers as votedUsersCount')
             ->addSelect([
-                'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($userId)
+                'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($user->id)
             ])
-            ->when($status && $status !== 'all', function (Builder $builder) use($status) {
+            ->when($status && $status !== 'all', function (Builder $builder) use ($status) {
                 $statusId = Status::whereName(Str::headline($status))->first()->id;
                 $builder->where('status_id', $statusId);
             })
-            ->when($this->category, function (Builder $builder) use($categories) {
+            ->when($this->category, function (Builder $builder) use ($categories) {
                 $builder->where('category_id', $categories->pluck('id', 'slug')->get($this->category));
             })
-            ->latest()
-            ->paginate(Idea::PAGINATION_COUNT);
+            ->when($filter = $this->filter, function (Builder $builder) use ($status, $filter, $user) {
+                switch ($filter) {
+                    case 'my_votes':
+                        $builder->whereBelongsTo($user);
+                        break;
+                }
+                $statusId = Status::whereName(Str::headline($status))->first()->id;
+                $builder->where('status_id', $statusId);
+            });
+        if($filter === 'top_voted') {
+            $mainQuery->orderByDesc('votedUsersCount');
+        } else {
+            $mainQuery->latest();
+        }
+
+        return $mainQuery->paginate(Idea::PAGINATION_COUNT);
     }
 
     public function updateIdeas($status)
