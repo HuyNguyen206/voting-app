@@ -34,7 +34,7 @@ class  StatusSeeder extends Seeder
                 'class' => 'bg-green text-white'
             ],
             [
-                'name' => 'Close',
+                'name' => 'Closed',
                 'class' => 'bg-red text-white'
             ]
         ]);

@@ -25,14 +25,22 @@ class IdeasIndex extends Component
         return view('livewire.ideas-index', compact('ideas', 'categories'));
     }
 
+    public function mount()
+    {
+        if ($this->shouldRedirectToLoginPage()) {
+            return redirect()->route('login');
+        }
+    }
+
     public function getIdeas($categories)
     {
+
         $user = auth()->user();
         $status = $this->status;
         $mainQuery = Idea::with(['user', 'category', 'status'])
             ->withCount('votedUsers as votedUsersCount')
             ->addSelect([
-                'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId($user->id)
+                'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId(optional($user)->id)
             ])
             ->when($status && $status !== 'all', function (Builder $builder) use ($status) {
                 $statusId = Status::whereName(Str::headline($status))->first()->id;
@@ -41,14 +49,14 @@ class IdeasIndex extends Component
             ->when($this->category, function (Builder $builder) use ($categories) {
                 $builder->where('category_id', $categories->pluck('id', 'slug')->get($this->category));
             })
-            ->when($filter = $this->filter, function (Builder $builder) use ($status, $filter, $user) {
+            ->when($filter = $this->filter, function (Builder $builder) use ($filter, $user) {
                 switch ($filter) {
-                    case 'my_votes':
-                        $builder->whereBelongsTo($user);
+                    case 'my_ideas':
+                        if ($user) {
+                            $builder->whereBelongsTo($user);
+                        }
                         break;
                 }
-                $statusId = Status::whereName(Str::headline($status))->first()->id;
-                $builder->where('status_id', $statusId);
             });
         if($filter === 'top_voted') {
             $mainQuery->orderByDesc('votedUsersCount');
@@ -66,10 +74,23 @@ class IdeasIndex extends Component
 //        return $this->redirectRoute('ideas.index', compact('status'));
     }
 
-    public function updateCategory()
+    public function updatedCategory()
     {
         $this->emit('updateCategory', $this->category);
         $this->resetPage();
+    }
+
+    public function updatedFilter()
+    {
+        if ($this->shouldRedirectToLoginPage()) {
+            return $this->redirect(route('login'));
+        }
+        $this->resetPage();
+    }
+
+    private function shouldRedirectToLoginPage()
+    {
+      return auth()->guest() && $this->filter === 'my_ideas';
     }
 
 }

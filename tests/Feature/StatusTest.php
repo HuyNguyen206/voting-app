@@ -42,7 +42,7 @@ class StatusTest extends TestCase
         ]);
 
         $close = Status::factory()->create([
-           'name' =>  'Close'
+           'name' =>  'Closed'
         ]);
         Idea::factory(8)->create([
             'status_id' => $close
