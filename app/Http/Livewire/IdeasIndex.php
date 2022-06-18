@@ -16,8 +16,8 @@ class IdeasIndex extends Component
     use WithPagination;
 
     protected $listeners = ['updateStatusFilter' => 'updateIdeas'];
-    public $status, $category = null, $filter;
-    protected $queryString = ['status', 'category', 'filter'];
+    public $status, $category = null, $filter, $search;
+    protected $queryString = ['status', 'category', 'filter', 'search'];
     public function render()
     {
         $categories = Category::all();
@@ -34,7 +34,6 @@ class IdeasIndex extends Component
 
     public function getIdeas($categories)
     {
-
         $user = auth()->user();
         $status = $this->status;
         $mainQuery = Idea::with(['user', 'category', 'status'])
@@ -48,6 +47,10 @@ class IdeasIndex extends Component
             })
             ->when($this->category, function (Builder $builder) use ($categories) {
                 $builder->where('category_id', $categories->pluck('id', 'slug')->get($this->category));
+            })
+            ->when($this->search, function (Builder $builder) use ($categories) {
+                $builder->where('title', 'like', "%{$this->search}%")
+                        ->orWhere('description', 'like', "%{$this->search}%");
             })
             ->when($filter = $this->filter, function (Builder $builder) use ($filter, $user) {
                 switch ($filter) {
@@ -77,6 +80,11 @@ class IdeasIndex extends Component
     public function updatedCategory()
     {
         $this->emit('updateCategory', $this->category);
+        $this->resetPage();
+    }
+
+    public function updatedSearch()
+    {
         $this->resetPage();
     }
 
