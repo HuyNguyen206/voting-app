@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -92,4 +93,45 @@ class ShowIdeasTest extends TestCase {
 
         return $openStatus;
     }
+
+    /**
+     * @return mixed
+     */
+    private function getImplementedStatus()
+    {
+        $openStatus = Status::create([
+            'name' => 'Implemented',
+            'class' => 'bg-green text-white'
+        ]);
+
+        return $openStatus;
+    }
+
+    public function test_get_back_url_work()
+    {
+        $implemented = $this->getImplementedStatus();
+
+        $consideringStatus = Status::create([
+            'name' => 'Considering',
+            'class' => 'bg-purple text-white'
+        ]);
+        $category = Category::factory()->create([
+            'name' => 'PHP'
+        ]);
+        $ideaOne = Idea::factory()->create(['status_id' => $implemented->id, 'category_id'=> $category->id]);
+        $ideaTwo = Idea::factory()->create(['status_id' => $consideringStatus->id]);
+
+        $response = $this->get(route('ideas.index', ['status' => 'implemented', 'category' => 'php']));
+        $queryString = http_build_query(['category' => 'php','status' => 'implemented']);
+        $response2 = $this->get(route('ideas.show', $ideaOne->slug))
+            ->assertViewHas('url', route('ideas.index'). '/?' .$queryString);
+
+        $this->assertStringContainsString($queryString, $response2['url']);
+        $response3= $this->get(route('ideas.show', $ideaOne->slug))
+            ->assertViewHas('url', route('ideas.index'));
+        $this->assertEquals(route('ideas.index'), $response3['url']);
+
+//        issuense->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-purple text-white">Considering</button>', false);
+    }
+
 }

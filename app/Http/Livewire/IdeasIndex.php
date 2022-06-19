@@ -7,6 +7,7 @@ use App\Models\Idea;
 use App\Models\Status;
 use App\Models\Vote;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -74,6 +75,7 @@ class IdeasIndex extends Component
     {
         $this->status = $status;
         $this->resetPage();
+//        Session::put('status', $this->status);
 //        return $this->redirectRoute('ideas.index', compact('status'));
     }
 
@@ -81,11 +83,13 @@ class IdeasIndex extends Component
     {
         $this->emit('updateCategory', $this->category);
         $this->resetPage();
+//        Session::put('category', $this->category);
     }
 
     public function updatedSearch()
     {
         $this->resetPage();
+//        Session::put('search', $this->search);
     }
 
     public function updatedFilter()
@@ -94,6 +98,7 @@ class IdeasIndex extends Component
             return $this->redirect(route('login'));
         }
         $this->resetPage();
+//        Session::put('filter', $this->filter);
     }
 
     private function shouldRedirectToLoginPage()
