@@ -79,6 +79,7 @@ class IdeasIndex extends Component
 //        return $this->redirectRoute('ideas.index', compact('status'));
     }
 
+
     public function updatedCategory()
     {
         $this->emit('updateCategory', $this->category);

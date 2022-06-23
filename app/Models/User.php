@@ -65,4 +65,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Vote::class, 'votes', 'user_id', 'idea_id')->withTimestamps();
     }
+
+    public function isAdmin()
+    {
+        return in_array($this->email, [
+            'nguyenlehuyuit@gmail.com'
+        ]);
+    }
 }
