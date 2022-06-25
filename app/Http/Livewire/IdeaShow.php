@@ -24,8 +24,8 @@ class IdeaShow extends Component
     {
         return view('livewire.idea-show');
     }
-    public function updateIdea(Idea $idea)
+    public function updateIdea()
     {
-        $this->idea = $idea;
+        $this->idea->refresh();
     }
 }
