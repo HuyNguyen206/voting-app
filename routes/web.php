@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\IdeaController::class, 'index'])->name('ideas.index');
 Route::get('ideas/{idea:slug}', [\App\Http\Controllers\IdeaController::class, 'show'])->name('ideas.show');
 Route::view('/idea', 'show');
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 require __DIR__.'/auth.php';

@@ -9,24 +9,25 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateIdea extends Component
-{
+class CreateIdea extends Component {
+
     public $title;
     public $category;
     public $description;
 
     protected function rules()
     {
-       return [
-           'title' => 'required|min:2',
-           'category' => ['required', Rule::exists('categories', 'id')],
-           'description' => 'min:5'
-       ];
+        return [
+            'title' => 'required|min:2',
+            'category' => ['required', Rule::exists('categories', 'id')],
+            'description' => 'min:5'
+        ];
     }
 
     public function render()
     {
         $categories = Category::all();
+
         return view('livewire.create-idea', compact('categories'));
     }
 
@@ -37,21 +38,20 @@ class CreateIdea extends Component
 
     public function createIdea()
     {
-        if(auth()->check()) {
+        abort_if(auth()->guest(), Response::HTTP_FORBIDDEN);
             $this->validate();
 
-            Idea::create([
+            $idea = Idea::create([
                 'title' => $this->title,
                 'category_id' => $this->category,
-                'user_id' => auth()->id(),
+                'user_id' => $userId = auth()->id(),
                 'status_id' => Status::whereName('Open')->first('id')->id,
                 'description' => $this->description
             ]);
             session()->flash('success_message', 'Your idea was created success');
             $this->reset();
+            $idea->votedUsers()->attach($userId);
             return redirect()->route('ideas.index');
 //            return redirect()->route('ideas.index');
         }
-        abort(Response::HTTP_UNAUTHORIZED, 'Please login');
-    }
 }

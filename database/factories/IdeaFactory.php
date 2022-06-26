@@ -29,4 +29,9 @@ class IdeaFactory extends Factory
             'description' => $this->faker->paragraph(5)
         ];
     }
+
+    public function existing()
+    {
+
+    }
 }

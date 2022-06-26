@@ -3,10 +3,13 @@
 namespace App\Notifications;
 
 use App\Models\Idea;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
+use Monolog\Logger;
 
 class IdeaUpdatedNotification extends Notification
 {
@@ -19,12 +22,12 @@ class IdeaUpdatedNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Idea $idea)
+    public function __construct(Idea $idea, User $user)
     {
         //
+        \logger('$idea '.json_encode($idea));
         $this->idea = $idea;
-        $user = auth()->user();
-        $this->message = "The idea {$idea->name} was updated by {$user->name}";
+        $this->message = "The idea {$idea->title} was updated by {$user->name}";
     }
 
     /**

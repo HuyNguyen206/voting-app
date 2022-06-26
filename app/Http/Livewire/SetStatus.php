@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\SendEmailNotficationToVoterJob;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Notifications\IdeaUpdatedNotification;
@@ -35,10 +36,7 @@ class SetStatus extends Component {
         ]);
         $this->emitTo(IdeaShow::class, 'updateIdea');
         if ($this->notifyUser) {
-                $this->idea->votedUsers()->select('name', 'email')
-                ->chunk(100, function ($voters) {
-                    Notification::send($voters, new IdeaUpdatedNotification($this->idea));
-                });
+               dispatch(new SendEmailNotficationToVoterJob($this->idea, auth()->user()));
         }
         $this->dispatchBrowserEvent('idea-updated');
     }

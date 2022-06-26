@@ -60,7 +60,7 @@ class CreateIdeaTest extends TestCase
         $this->withoutExceptionHandling();
         $category = Category::factory()->create();
         $status = Status::factory()->create(['name' => 'Open', 'class' => 'test']);
-        $response = Livewire::actingAs(User::factory()->create())
+        $response = Livewire::actingAs($user = User::factory()->create())
             ->test(CreateIdea::class)
             ->set('title', 'test')
             ->set('category', $category->id)
@@ -71,6 +71,11 @@ class CreateIdeaTest extends TestCase
             'title' => 'test',
             'category_id' => $category->id,
             'status_id' => $status->id
+        ]);
+
+        $this->assertDatabaseHas('votes', [
+            'idea_id' => 1,
+            'user_id' => $user->id
         ]);
     }
 

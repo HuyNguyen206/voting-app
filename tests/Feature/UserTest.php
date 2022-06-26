@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Http\Livewire\IdeaShow;
 use App\Http\Livewire\SetStatus;
+use App\Jobs\SendEmailNotficationToVoterJob;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -95,5 +97,25 @@ class UserTest extends TestCase
             ->assertEmittedTo(IdeaShow::class, 'updateIdea');
 //        Livewire::actingAs($user)->test(IdeaShow::class, ['idea' => Idea::factory()->create()])->assertDontSeeHtml('<form wire:submit.prevent="updateIdea" class="px-2 py-4" action="">');
         $this->assertDatabaseHas('ideas', ['id' => $idea->id, 'status_id' => $old->id]);
+    }
+
+    public function test_can_set_status_correctly_while_notify_all_voters()
+    {
+        Status::factory(5)->create();
+        $new = Status::factory()->create();
+        $old = Status::factory()->create();
+        $admin =  User::factory()->create([
+            'email' => 'nguyenlehuyuit@gmail.com'
+        ]);
+        Queue::fake();
+        Queue::assertNothingPushed();
+//        $this->actingAs($user)->get(route('ideas.show', Idea::factory()->create(['status_id' => $new->id])->slug))
+//            ->assertDontSeeLivewire(SetStatus::class);
+        Livewire::actingAs($admin)->test(SetStatus::class, ['idea' => $idea = Idea::factory()->create(['status_id' => $new->id])])
+            ->set('status', $old->id)
+            ->set('notifyUser', true)
+            ->call('updateIdea')
+            ->assertEmittedTo(IdeaShow::class, 'updateIdea');
+        Queue::assertPushed(SendEmailNotficationToVoterJob::class);
     }
 }
