@@ -28,4 +28,9 @@ class IdeaShow extends Component
     {
         $this->idea->refresh();
     }
+
+//    public function showIdeaEditModal()
+//    {
+//        $this->emitTo(EditIdea::class, 'showIdeaEditModal', ['idea' => $this->idea]);
+//    }
 }
