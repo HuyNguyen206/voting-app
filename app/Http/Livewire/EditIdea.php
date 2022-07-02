@@ -45,7 +45,7 @@ class EditIdea extends Component {
 
     public function updateIdea()
     {
-        abort_if(auth()->guest(), Response::HTTP_FORBIDDEN);
+        abort_if(auth()->guest(), Response::HTTP_UNAUTHORIZED);
         $this->authorize('update', $this->idea);
         $this->validate();
         $this->idea->update([
