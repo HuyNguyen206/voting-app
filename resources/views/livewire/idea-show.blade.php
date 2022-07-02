@@ -50,7 +50,9 @@
 </svg></span>
                         <ul @click.outside.window="showDialog = false" x-show="showDialog" x-transition class="space-y-4 top-9 absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3">
                             <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold">Mark as spam</a></li>
-                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold">Delete idea</a></li>
+                            @can('delete', $idea)
+                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold" @click.prevent="$dispatch('custom-show-delete-idea')">Delete idea</a></li>
+                            @endcan
                             @can('update', $idea)
                             <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold" @click.prevent="$dispatch('custom-show-edit-idea')">Edit idea</a></li>
                             @endcan
