@@ -51,9 +51,15 @@ class IdeaPolicy
      * @param  \App\Models\Idea  $idea
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Idea $idea)
+    public function update(?User $user, Idea $idea)
     {
-        //
+        if (!$user) {
+            return false;
+        }
+        if (now()->diffInHours($idea->created_at) > 1) {
+            return false;
+        }
+       return (int) $idea->user_id === $user->id;
     }
 
     /**

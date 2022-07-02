@@ -3,7 +3,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
         </svg><span>All ideas</span></a>
     <livewire:idea-show :idea="$idea"/>
-    <livewire:edit-idea/>
+    @can('update', $idea)
+    <livewire:edit-idea :idea="$idea"/>
+    @endcan
     <div class="comments-container relative space-y-4">
     <div class="comment relative">
         <div class="flex">

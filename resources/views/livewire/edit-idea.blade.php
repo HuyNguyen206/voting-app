@@ -3,34 +3,16 @@
      aria-labelledby="modal-title"
      role="dialog" aria-modal="true"
      x-data="{isShow: false}"
+     @click.outside="isShow = false"
      x-cloak
      @keydown.escape.window="isShow = false"
      x-show="isShow"
-     @custom-show-edit-idea.window="isShow = true">
-    <!--
-      Background backdrop, show/hide based on modal state.
-
-      Entering: "ease-out duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
+     @custom-show-edit-idea.window="isShow = true"
+     @update-idea.window="isShow = false">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
     <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
-            <!--
-              Modal panel, show/hide based on modal state.
-
-              Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-              Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
             <div class="model bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                <div class="absolute top-0 right-0 pt-4 pr-4 text-lg cursor-pointer">
                    <button class="text-gray-400 hover:text-gray-500" @click="isShow = false">&times;</button>
@@ -38,22 +20,11 @@
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                    <h3 class="text-center text-lg font-medium text-gray-900">Edit idea</h3>
                     <p class="text-xs text-center text-gray-500 mt-4">You have one hour to edit your idea from the time you created</p>
-                    <form @click.outside="isShow = false" x-data="{show:true}" wire:submit.prevent="createIdea" action="" class="px-2 py-4">
-                        @if($message = session('success_message'))
-                            <div class="bg-green text-white w-full rounded-xl px-2 py-2 my-2"
-                                 x-init="setTimeout(() => {
-                                 show = false
-                                 }, 5000)"
-                                 x-transition x-show="show" @click="show=false">
-                                <p>
-                                    {{$message}}
-                                </p>
-                            </div>
-                        @endif
+                    <form  wire:submit.prevent="updateIdea" action="" class="px-2 py-4">
                         <div class="space-y-4">
-                            <input wire:model.debounce.500ms="idea.title" placeholder="Your idea"
+                            <input wire:model.debounce.500ms="title" placeholder="Your idea"
                                    class=" w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
-                                   type="text"  id="">
+                                   type="text"  id="" required>
                             @error('title')
                             <span class="text-red mt-2">{{$message}}</span>
                             @enderror
@@ -61,14 +32,14 @@
                                     class="w-full px-2 py-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
                                     name="" id="">
                                 <option value="">Category</option>
-{{--                                @foreach($categories as $category)--}}
-{{--                                    <option value="{{$category->id}}">{{$category->name}}</option>--}}
-{{--                                @endforeach--}}
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
                             </select>
                             @error('category')
                             <span class="text-red mt-2">{{$message}}</span>
                             @enderror
-                            <textarea wire:model.debounce.500ms="idea.description" placeholder="Describe your idea"
+                            <textarea wire:model.debounce.500ms="description" placeholder="Describe your idea"
                                       class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
                                       name="" id="" cols="30" rows="10"></textarea>
                             @error('description')
