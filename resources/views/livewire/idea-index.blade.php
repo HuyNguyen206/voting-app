@@ -1,4 +1,4 @@
-<div>
+ <div>
     <div x-data @click="let targetTagName = $event.target.tagName.toLowerCase();
         console.log(targetTagName)
         if (['button', 'svg', 'path', 'a'].includes(targetTagName))  {
@@ -28,9 +28,14 @@
                 <div>
                     <h4 class="mb-4 font-semibold text-xl">
                         <a x-ref="show_{{$idea->id}}" href="{{route('ideas.show', $idea->slug)}}">{{$idea->title}}</a></h4>
-                    <p class="line-clamp-3">
+                    <div class="line-clamp-3">
+                        @admin
+                        @if($idea->spam_reports)
+                        <p class="text-red mb-2">Spam reports: {{$idea->spam_reports}}</p>
+                        @endif
+                        @endadmin
                         {{$idea->description}}
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

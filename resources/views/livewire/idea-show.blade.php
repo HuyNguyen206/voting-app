@@ -19,9 +19,14 @@
                 <div>
                     <h4 class="mb-4 font-semibold text-xl">
                         <a href="">{{$idea->title}}</a></h4>
-                    <p class="line-clamp-3">
+                    <div class="line-clamp-3">
+                        @admin
+                        @if($idea->spam_reports)
+                            <p class="text-red mb-2">Spam reports: {{$idea->spam_reports}}</p>
+                        @endif
+                        @endadmin
                         {{$idea->description}}
-                    </p>
+                    </div>
                 </div>
 
             </div>
@@ -48,13 +53,18 @@
   <path stroke-linecap="round" stroke-linejoin="round"
         d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
 </svg></span>
-                        <ul @click.outside.window="showDialog = false" x-show="showDialog" x-transition class="space-y-4 top-9 absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3">
-                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold">Mark as spam</a></li>
+                        <ul @click.outside.window="showDialog = false" x-show="showDialog" x-transition class="top-9 absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3">
+                            @can('markAsSpam', $idea)
+                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 font-bold inline-block" @click.prevent="$dispatch('custom-show-mark-spam-idea')">Mark as spam</a></li>
+                            @endcan
+                            @can('markAsNotSpam', $idea)
+                                <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 font-bold inline-block" @click.prevent="$dispatch('custom-show-mark-not-spam-idea')">Mark as not spam</a></li>
+                            @endcan
                             @can('delete', $idea)
-                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold" @click.prevent="$dispatch('custom-show-delete-idea')">Delete idea</a></li>
+                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 font-bold inline-block" @click.prevent="$dispatch('custom-show-delete-idea')">Delete idea</a></li>
                             @endcan
                             @can('update', $idea)
-                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold" @click.prevent="$dispatch('custom-show-edit-idea')">Edit idea</a></li>
+                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 font-bold inline-block" @click.prevent="$dispatch('custom-show-edit-idea')">Edit idea</a></li>
                             @endcan
                         </ul>
                     </button>
@@ -95,9 +105,9 @@
                     </form>
                 </div>
             </div>
-            @if(optional(auth()->user())->isAdmin())
+            @admin
                 <livewire:set-status :idea="$idea"/>
-            @endif
+            @endadmin
         </div>
         <div class="hidden lg:flex justify-end items-center border-r border-gray-100 px-5 py-8">
             <div class="text-center mr-2">

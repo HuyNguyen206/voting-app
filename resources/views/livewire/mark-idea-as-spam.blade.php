@@ -5,7 +5,8 @@
      x-cloak
      @keydown.escape.window="isShow = false"
      x-show="isShow"
-     @custom-show-delete-idea.window="isShow = true; $nextTick(() => {$refs.deleteButton.focus()})"
+     @custom-show-mark-spam-idea.window="isShow = true; $nextTick(() => {$refs.markButton.focus()})"
+     @mark-idea.window="isShow = false"
 >
     <!--
       Background backdrop, show/hide based on modal state.
@@ -41,17 +42,17 @@
                             </svg>
                         </div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Deactivate idea</h3>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Mark idea as spam</h3>
                             <div class="mt-2">
-                                <p class="text-sm text-gray-500">Are you sure you want to deactivate your idea? All of your data will be permanently removed. This action cannot be undone.</p>
+                                <p class="text-sm text-gray-500">Are you sure you want to mark this idea as spam?</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                            wire:click.prevent="deleteIdea"
-                            x-ref="deleteButton">Delete idea</button>
+                            wire:click.prevent="markIdeaAsSpam"
+                            x-ref="markButton">Mark as spam</button>
                     <button type="button"
                             class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                             @click.prevent="isShow = false"

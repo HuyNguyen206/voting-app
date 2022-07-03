@@ -10,6 +10,14 @@
     @can('delete', $idea)
     <livewire:delete-idea :idea="$idea"/>
     @endcan
+
+    @can('markAsSpam', $idea)
+    <livewire:mark-idea-as-spam :idea="$idea"/>
+    @endcan
+
+    @can('markAsNotSpam', $idea)
+    <livewire:mark-idea-as-not-spam :idea="$idea"/>
+    @endcan
     <div class="comments-container relative space-y-4">
     <div class="comment relative">
         <div class="flex">

@@ -60,13 +60,20 @@ class IdeasIndex extends Component
                             $builder->whereBelongsTo($user);
                         }
                         break;
+                   case 'most_spam_idea':
+                        $builder->where('spam_reports', '>=', 1)
+                                ->orderByDesc('spam_reports');
+                        break;
+                   case 'top_voted':
+                        $builder->orderByDesc('votedUsersCount');
+                        break;
                 }
             });
-        if($filter === 'top_voted') {
-            $mainQuery->orderByDesc('votedUsersCount');
-        } else {
+//        if($filter === 'top_voted') {
+//            $mainQuery->orderByDesc('votedUsersCount');
+//        } else {
             $mainQuery->latest();
-        }
+//        }
 
         return $mainQuery->paginate(Idea::PAGINATION_COUNT);
     }

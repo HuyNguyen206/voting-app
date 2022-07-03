@@ -13,6 +13,9 @@
                 <option value="">No filter</option>
                 <option value="top_voted">Top voted</option>
                 <option value="my_ideas">My ideas</option>
+                @admin
+                <option value="most_spam_idea">Most Spam idea</option>
+                @endadmin
             </select>
         </div>
         <div class="lg:w-1/3 relative mt-2 lg:mt-0 mx-2 lg:mx-0">

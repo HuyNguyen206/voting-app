@@ -57,6 +57,30 @@ class IdeaPolicy
     }
 
     /**
+     * Determine whether the user can mark the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Idea  $idea
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function markAsSpam(?User $user, Idea $idea)
+    {
+        return auth()->check();
+    }
+
+    /**
+     * Determine whether the user can mark the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Idea  $idea
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function markAsNotSpam(?User $user, Idea $idea)
+    {
+        return auth()->check() && $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
