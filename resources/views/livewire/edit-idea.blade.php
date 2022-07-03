@@ -7,7 +7,7 @@
      x-cloak
      @keydown.escape.window="isShow = false"
      x-show="isShow"
-     @custom-show-edit-idea.window="isShow = true"
+     @custom-show-edit-idea.window="isShow = true;  $nextTick(() => {$refs.titleInput.focus()})"
      @update-idea.window="isShow = false">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -22,7 +22,7 @@
                     <p class="text-xs text-center text-gray-500 mt-4">You have one hour to edit your idea from the time you created</p>
                     <form  wire:submit.prevent="updateIdea" action="" class="px-2 py-4">
                         <div class="space-y-4">
-                            <input wire:model.debounce.500ms="title" placeholder="Your idea"
+                            <input wire:model.debounce.500ms="title" x-ref="titleInput" placeholder="Your idea"
                                    class=" w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
                                    type="text"  id="" required>
                             @error('title')

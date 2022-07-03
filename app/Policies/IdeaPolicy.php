@@ -65,7 +65,7 @@ class IdeaPolicy
      */
     public function delete(User $user, Idea $idea)
     {
-        return $this->authorizeUser($user, $idea);
+        return $this->authorizeUser($user, $idea) || $user->isAdmin();
     }
 
     private function authorizeUser(?User $user, Idea $idea)
