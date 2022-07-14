@@ -26,7 +26,8 @@ class MarkIdeaAsNotSpam extends Component
     {
         $this->authorize('markAsNotSpam', $this->idea);
         $this->idea->update(['spam_reports' => 0]);
+//        $this->emitTo(IdeaNotification::class, 'displayNotification', 'Idea was mark as not spam successfully!');
         $this->emitTo(IdeaShow::class, 'updateIdea');
-        $this->dispatchBrowserEvent('mark-idea');
+        $this->dispatchBrowserEvent('mark-not-spam-idea');
     }
 }

@@ -53,6 +53,7 @@ class EditIdea extends Component {
             'category_id' => $this->category,
             'description' => $this->description
         ]);
+//        $this->emitTo(IdeaNotification::class, 'displayNotification', 'Idea was updated successfully!');
         $this->emitTo(IdeaShow::class, 'updateIdea');
         $this->dispatchBrowserEvent('update-idea');
 

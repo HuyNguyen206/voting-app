@@ -53,7 +53,7 @@
   <path stroke-linecap="round" stroke-linejoin="round"
         d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
 </svg></span>
-                        <ul @click.outside.window="showDialog = false" x-show="showDialog" x-transition class="top-9 absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3">
+                        <ul @click.outside.window="showDialog = false" x-show="showDialog" x-cloak x-transition class="top-9 absolute w-44 font-semibold bg-white shadow-lg rounded-xl py-3">
                             @can('markAsSpam', $idea)
                             <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 font-bold inline-block" @click.prevent="$dispatch('custom-show-mark-spam-idea')">Mark as spam</a></li>
                             @endcan

@@ -17,7 +17,7 @@
      x-show="isShow"
      {{ '@'. $eventToOpenModal }}.window="isShow = true; $nextTick(() => {$refs.{{$actionButton}}.focus()})"
      @if(isset($eventToCloseModal))
-         {{'@'. $eventToCloseModal }}.window="isShow = false"
+         {{'@'. $eventToCloseModal }}.window="isShow = false; $dispatch('custom-show-notification', '{{$displayNotificationMessage}}')"
      @endif
 >
     <!--

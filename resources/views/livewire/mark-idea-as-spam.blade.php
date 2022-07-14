@@ -5,5 +5,6 @@
     modal-description="Are you sure you want to mark this idea as spam?"
     action-trigger="markIdeaAsSpam"
     modal-action="Mark idea as spam"
-    event-to-close-modal="mark-idea"
+    event-to-close-modal="mark-spam-idea"
+    display-notification-message="Idea was mark as spam successfully!"
 />
