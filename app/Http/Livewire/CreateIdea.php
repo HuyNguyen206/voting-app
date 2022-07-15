@@ -48,7 +48,7 @@ class CreateIdea extends Component {
                 'status_id' => Status::whereName('Open')->first('id')->id,
                 'description' => $this->description
             ]);
-            session()->flash('success_message', 'Your idea was created success');
+            session()->flash('success_message', 'Your idea was created successfully!');
             $this->reset();
             $idea->votedUsers()->attach($userId);
             return redirect()->route('ideas.index');

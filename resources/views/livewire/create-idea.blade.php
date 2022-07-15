@@ -1,15 +1,15 @@
 <form  x-data="{show:true}" wire:submit.prevent="createIdea" action="" class="px-2 py-4">
-    @if($message = session('success_message'))
-    <div class="bg-green text-white w-full rounded-xl px-2 py-2 my-2"
-         x-init="setTimeout(() => {
-         show = false
-         }, 5000)"
-         x-transition x-show="show" @click="show=false">
-        <p>
-            {{$message}}
-        </p>
-    </div>
-    @endif
+{{--    @if($message = session('success_message'))--}}
+{{--    <div class="bg-green text-white w-full rounded-xl px-2 py-2 my-2"--}}
+{{--         x-init="setTimeout(() => {--}}
+{{--         show = false--}}
+{{--         }, 5000)"--}}
+{{--         x-transition x-show="show" @click="show=false">--}}
+{{--        <p>--}}
+{{--            {{$message}}--}}
+{{--        </p>--}}
+{{--    </div>--}}
+{{--    @endif--}}
     <div class="space-y-4">
         <input wire:model.debounce.500ms="title" placeholder="Your idea" class=" w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" type="text" name="" id="">
         @error('title')

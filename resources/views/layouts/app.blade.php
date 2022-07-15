@@ -74,6 +74,9 @@
                    </div>
                </div>
            </main>
+      @if($message = session('success_message'))
+          <x-idea-notification :is-redirect="true" display-notification="{{$message}}"/>
+      @endif
       @livewireScripts
     </body>
 </html>

@@ -14,11 +14,11 @@
     <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
             <div class="model bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
-               <div class="absolute top-0 right-0 pt-4 pr-4 text-lg cursor-pointer">
-                   <button class="text-gray-400 hover:text-gray-500" @click="isShow = false">&times;</button>
-               </div>
+                <div class="absolute top-0 right-0 pt-4 pr-4 text-lg cursor-pointer">
+                    <button class="text-gray-400 hover:text-gray-500" @click="isShow = false">&times;</button>
+                </div>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                   <h3 class="text-center text-lg font-medium text-gray-900">Edit idea</h3>
+                    <h3 class="text-center text-lg font-medium text-gray-900">Edit idea</h3>
                     <p class="text-xs text-center text-gray-500 mt-4">You have one hour to edit your idea from the time you created</p>
                     <form  wire:submit.prevent="updateIdea" action="" class="px-2 py-4">
                         <div class="space-y-4">

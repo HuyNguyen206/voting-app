@@ -27,6 +27,7 @@ class DeleteIdea extends Component
         $this->authorize('delete', $this->idea);
         $this->idea->votedUsers()->detach();
         $this->idea->delete();
+        session()->flash('success_message', 'Your idea was deleted successfully!');
         $this->redirect(route('ideas.index'));
     }
 }

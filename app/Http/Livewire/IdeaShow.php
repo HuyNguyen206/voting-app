@@ -10,6 +10,7 @@ use Livewire\Component;
 class IdeaShow extends Component
 {
     use Vote;
+
     public $idea;
     public $isVoted;
     protected $listeners = ['updateIdea'];
@@ -17,13 +18,15 @@ class IdeaShow extends Component
     public function mount(Idea $idea)
     {
         $this->idea = $idea;
-        $this->isVoted =$idea->isVotedByUser(auth()->id());
+        $this->isVoted = $idea->isVotedByUser(auth()->id());
         $this->statuses = Status::all();
     }
+
     public function render()
     {
         return view('livewire.idea-show');
     }
+
     public function updateIdea()
     {
         $this->idea->refresh();

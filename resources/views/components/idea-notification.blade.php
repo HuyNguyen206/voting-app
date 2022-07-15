@@ -1,18 +1,33 @@
-<div x-data="{isShow:false, displayNotification:null }" x-show="isShow"
+@props([
+'displayNotification' => '',
+'isRedirect' => false
+])
+<div x-data="{
+    isShow:false,
+    displayNotification:null,
+    initNotification() {
+             this.isShow = true;
+             setTimeout(() => {
+             this.isShow = false
+             }, 5000)
+        }
+          }"
+         x-show="isShow"
          @click.outside.window="isShow = false"
-{{--         @custom-show-notification.window="isShow = true; setTimeout(() => {--}}
-{{--         isShow = false--}}
-{{--         }, 5000)"--}}
          x-cloak
          x-transition
-         x-init="window.addEventListener('custom-show-notification', event => {
-             displayNotification = event.detail;
-             console.log(displayNotification)
-             isShow = true;
-             setTimeout(() => {
-             isShow = false
-             }, 5000)
-})"
+         x-init="
+            @if(!$isRedirect)
+                 window.addEventListener('custom-show-notification', event => {
+                 displayNotification = event.detail;
+                 console.log(displayNotification)
+                 initNotification()
+            })
+            @else
+                 displayNotification = '{{$displayNotification}}'
+                 initNotification()
+            @endif
+"
          class="fixed bottom-0 right-0 bg-white rounded-xl shadow-lg border px-6 py-5 mx-6 my-8 max-w-sm w-full">
         <div class="flex justify-between">
             <div class="flex items-center">
