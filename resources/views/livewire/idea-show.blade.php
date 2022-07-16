@@ -41,7 +41,7 @@
                 <span class="text-2xl text-gray-300">•</span>
                 <span class="text-gray-400">{{$idea->category->name}}</span>
                 <span class="text-2xl text-gray-300">•</span>
-                <span class="font-semibold">3 Comments</span>
+                <span class="font-semibold">{{$idea->comments->count()}} {{Str::plural('comment', $idea->comments->count())}} </span>
             </div>
             <div class="flex flex-col lg:flex-row " x-data="{showDialog:false}">
                 <div class="lg:flex-row flex space-x-6">

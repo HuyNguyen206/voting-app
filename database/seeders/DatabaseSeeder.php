@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\User;
@@ -29,5 +30,13 @@ class DatabaseSeeder extends Seeder
         ]);
         Idea::factory(30)->create();
         $this->call(VoteSeeder::class);
+        $users = User::all();
+
+        Idea::all()->each(function ($idea) use($users){
+           $idea->comments()->saveMany(Comment::factory(random_int(2, 5))->make([
+               'user_id' => $users->random(),
+               'idea_id' => $idea
+           ]));
+        });
     }
 }

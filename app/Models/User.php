@@ -72,4 +72,9 @@ class User extends Authenticatable
             'nguyenlehuyuit@gmail.com'
         ]);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

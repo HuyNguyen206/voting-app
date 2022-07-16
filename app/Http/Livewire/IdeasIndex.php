@@ -38,6 +38,7 @@ class IdeasIndex extends Component
         $user = auth()->user();
         $status = $this->status;
         $mainQuery = Idea::with(['user', 'category', 'status'])
+            ->withCount('comments as commentsCount')
             ->withCount('votedUsers as votedUsersCount')
             ->addSelect([
                 'isVoted' => Vote::select('id')->whereColumn('idea_id', 'ideas.id')->whereUserId(optional($user)->id)

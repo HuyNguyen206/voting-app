@@ -57,6 +57,7 @@ class IdeaController extends Controller {
 //            ]);
         $previousUrl = url()->previous();
         $url = $previousUrl === url()->current() ? route('ideas.index') : $previousUrl;
+        $idea->load('comments.user');
         return view('ideas.show', compact('idea', 'url'));
     }
 

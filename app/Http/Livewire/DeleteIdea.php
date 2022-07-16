@@ -26,6 +26,7 @@ class DeleteIdea extends Component
         abort_if(auth()->guest(), Response::HTTP_UNAUTHORIZED);
         $this->authorize('delete', $this->idea);
         $this->idea->votedUsers()->detach();
+        $this->idea->comments()->delete();
         $this->idea->delete();
         session()->flash('success_message', 'Your idea was deleted successfully!');
         $this->redirect(route('ideas.index'));

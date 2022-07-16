@@ -78,4 +78,9 @@ class Idea extends Model
         }
         return $this->votedUsers()->where('users.id',$userId)->exists();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
