@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected static $unguarded = true;
+
     public function user()
     {
         return $this->belongsTo(User::class);

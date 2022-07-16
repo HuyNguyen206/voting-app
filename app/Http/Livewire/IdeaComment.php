@@ -7,6 +7,7 @@ use Livewire\Component;
 class IdeaComment extends Component
 {
     public $comment;
+    public $idea;
 
     public function render()
     {

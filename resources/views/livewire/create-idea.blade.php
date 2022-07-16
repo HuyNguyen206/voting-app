@@ -24,7 +24,7 @@
         @error('category')
         <span class="text-red mt-2">{{$message}}</span>
         @enderror
-        <textarea wire:model.debounce.500ms="description" placeholder="Describe your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="" cols="30" rows="10"></textarea>
+        <textarea wire:keydown.enter="createIdea" wire:model.debounce.500ms="description" placeholder="Describe your idea" class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none" name="" id="" cols="30" rows="10"></textarea>
         @error('description')
         <span class="text-red mt-2">{{$message}}</span>
         @enderror

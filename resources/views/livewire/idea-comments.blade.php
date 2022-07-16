@@ -1,7 +1,7 @@
 @if($idea->comments->isNotEmpty())
     <div class="comments-container relative space-y-4">
         @foreach($idea->comments as $comment)
-            <livewire:idea-comment :comment="$comment" :key="$comment->id"/>
+            <livewire:idea-comment :idea="$idea" :comment="$comment" :key="$comment->id"/>
         @endforeach
     </div>
 @else

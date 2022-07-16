@@ -1,4 +1,4 @@
-<div class="comment relative @if($comment->user->isAdmin()) is-admin border-blue border-2 rounded-xl @endif">
+<div x-transition class="comment relative transition duration-500 @if($comment->user->isAdmin()) is-admin border-blue border-2 @endif rounded-xl bg-white">
     <div class="flex">
         <div class="ml-4 flex px-5 py-8">
             <a href="" class="flex-none">
@@ -21,6 +21,9 @@
         <div class="flex items-center text-xs space-x-4 ml-4 flex px-5 py-4">
             <span class="font-semibold">{{$comment->user->name}}</span>
             <span class="text-2xl text-gray-300">•</span>
+            @if($comment->user_id === $idea->user_id)
+            <div class="rounded-full border bg-gray-100 px-3 py-1">OP</div>
+            @endif
             <span class="text-gray-400">{{$comment->created_at->diffForHumans()}}</span>
         </div>
         <div class="flex space-x-6" x-data="{showDialog:false}">
