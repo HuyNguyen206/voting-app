@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Idea;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\Builder;
 
 class IdeaPolicy
 {
@@ -125,5 +126,12 @@ class IdeaPolicy
     public function forceDelete(User $user, Idea $idea)
     {
         //
+    }
+
+    public function editCommentOfIdea(User $user, Idea $idea)
+    {
+        return $idea->comments()->where(function (Builder $builder) use ($user){
+            $builder->where('user_id', $user->id);
+        })->exists();
     }
 }

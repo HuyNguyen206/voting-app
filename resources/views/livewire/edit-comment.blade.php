@@ -1,5 +1,4 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="relative z-10"
+<div class="relative z-50"
      aria-labelledby="modal-title"
      role="dialog" aria-modal="true"
      x-data="{isShow: false}"
@@ -7,8 +6,8 @@
      x-cloak
      @keydown.escape.window="isShow = false"
      x-show="isShow"
-     @custom-show-edit-idea.window="isShow = true;  $nextTick(() => {$refs.titleInput.focus()})"
-     @update-idea.window="isShow = false; $dispatch('custom-show-notification', 'Idea was updated successfully!')">
+     @custom-show-edit-comment.window="isShow = true;  $nextTick(() => {$refs.bodyInput.focus()})"
+     @edit-comment.window="isShow = false; $dispatch('custom-show-notification', 'Comment was updated successfully!')">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
     <div class="fixed z-10 inset-0 overflow-y-auto">
@@ -18,31 +17,13 @@
                     <button class="text-gray-400 hover:text-gray-500" @click="isShow = false">&times;</button>
                 </div>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <h3 class="text-center text-lg font-medium text-gray-900">Edit idea</h3>
-                    <p class="text-xs text-center text-gray-500 mt-4">You have one hour to edit your idea from the time you created</p>
-                    <form  wire:submit.prevent="updateIdea" action="" class="px-2 py-4">
+                    <h3 class="text-center text-lg font-medium text-gray-900">Edit comment</h3>
+                    <form  wire:submit.prevent="updateComment" action="" class="px-2 py-4">
                         <div class="space-y-4">
-                            <input wire:model.debounce.500ms="title" x-ref="titleInput" placeholder="Your idea"
-                                   class=" w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
-                                   type="text">
-                            @error('title')
-                            <span class="text-red mt-2">{{$message}}</span>
-                            @enderror
-                            <select wire:model.debounce.500ms="category"
-                                    class="w-full px-2 py-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
-                                    name="" id="">
-                                <option value="">Category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('category')
-                            <span class="text-red mt-2">{{$message}}</span>
-                            @enderror
-                            <textarea wire:model.debounce.500ms="description" placeholder="Describe your idea"
+                            <textarea x-ref="bodyInput" wire:model.debounce.500ms="body" placeholder="Edit comment"
                                       class="w-full px-2 px-4 placeholder-gray-700 bg-gray-100 rounded-xl border-none"
                                       name="" id="" cols="30" rows="10"></textarea>
-                            @error('description')
+                            @error('body')
                             <span class="text-red mt-2">{{$message}}</span>
                             @enderror
                             <div class="flex items-center justify-between">

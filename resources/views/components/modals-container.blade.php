@@ -17,3 +17,7 @@
 @can('markAsNotSpam', $idea)
     <livewire:mark-idea-as-not-spam :idea="$idea"/>
 @endcan
+
+@can('editCommentOfIdea', $idea)
+    <livewire:edit-comment />
+@endcan
