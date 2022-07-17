@@ -38,7 +38,7 @@ class CategoryFilterTest extends TestCase
         ]);
 
         Livewire::test(IdeasIndex::class)->set('category', $category->slug)->assertViewHas('ideas', function ($ideas) use($category) {
-            return $ideas->count() == 5 && $ideas->random()->category_id == $category->id;
+            return $ideas->count() == 10 && $ideas->random()->category_id == $category->id;
         });
         $this->get(route('ideas.index', ['category' => $category->slug]))
             ->assertSee('<span class="text-gray-400">'.$category->name.'</span>', false)

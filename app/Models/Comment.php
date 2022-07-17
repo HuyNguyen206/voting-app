@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected static $unguarded = true;
-
+    protected $perPage = 10;
     public function user()
     {
         return $this->belongsTo(User::class);

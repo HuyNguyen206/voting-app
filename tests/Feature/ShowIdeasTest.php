@@ -52,17 +52,17 @@ class ShowIdeasTest extends TestCase {
     public function test_ideas_pagination_works()
     {
         $openStatus = $this->getOpenStatus();
-        $openStatus->ideas()->saveMany(Idea::factory(6)->make());
+        $openStatus->ideas()->saveMany(Idea::factory(11)->make());
         $ideas = Idea::all();
         $ideaOne = $ideas->first();
-        $ideaSix = $ideas->last();
+        $ideaElevent = $ideas->last();
 
         $pageOne = $this->get(route('ideas.index'));
         $pageOne->assertSee($ideaOne->title);
-        $pageOne->assertDontSee($ideaSix->title);
+        $pageOne->assertDontSee($ideaElevent->title);
 
         $pageTwo = $this->get(route('ideas.index', ['page' => 2]));
-        $pageTwo->assertSee($ideaSix->title);
+        $pageTwo->assertSee($ideaElevent->title);
         $pageTwo->assertDontSee($ideaOne->title);
 
     }

@@ -76,7 +76,7 @@ class IdeasIndex extends Component
             $mainQuery->latest();
 //        }
 
-        return $mainQuery->paginate(Idea::PAGINATION_COUNT);
+        return $mainQuery->paginate()->withQueryString();
     }
 
     public function updateIdeas($status)

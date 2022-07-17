@@ -5,17 +5,22 @@
             <form wire:submit.prevent="addComment" class="px-2 py-4"
             x-init="Livewire.hook('message.processed', (message, component) =>
             {
+             console.log(message)
             if(message.updateQueue[0].payload.event === 'updateIdea'
-            && message.component.fingerprint.name === 'idea-comments')
-            {
+            && message.component.fingerprint.name === 'idea-comments') {
             const lastComment = document.querySelector('.comment:last-child')
             console.log(lastComment)
-             console.log(message)
+
             lastComment.scrollIntoView({behavior: 'smooth'})
             lastComment.classList.add('bg-green-50')
             setTimeout(() => {
              lastComment.classList.remove('bg-green-50')
             }, 2000)
+            }
+
+            if(['gotoPage', 'nextPage', 'previousPage'].includes(message.updateQueue[0].method)){
+              const firstComment = document.querySelector('.comment:first-child')
+              firstComment.scrollIntoView({behavior: 'smooth'})
             }
 
             })">

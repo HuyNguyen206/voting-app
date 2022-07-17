@@ -1,9 +1,15 @@
-@if($idea->comments->isNotEmpty())
-    <div class="comments-container relative space-y-4">
-        @foreach($idea->comments as $comment)
-            <livewire:idea-comment :idea="$idea" :comment="$comment" :key="$comment->id"/>
-        @endforeach
+@if($comments->isNotEmpty())
+    <div>
+        <div class="comments-container relative space-y-4">
+            @foreach($comments as $comment)
+                <livewire:idea-comment :idea="$idea" :comment="$comment" :key="$comment->id"/>
+            @endforeach
+        </div>
+        <div class="my-8">
+            {!! $comments->onEachSide(3)->links() !!}
+        </div>
     </div>
+
 @else
     <div>
         <img style="mix-blend-mode: luminosity" src="{{asset('images/no-ideas.svg')}}" alt="No-idea" class="mx-auto">
