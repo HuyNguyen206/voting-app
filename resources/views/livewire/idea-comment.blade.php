@@ -44,7 +44,11 @@
                     </li>
                     @endcan
                     <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold">Mark as spam</a></li>
-                    <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2"><a href="" class="px-5 py-3 font-bold">Delete post</a></li>
+                        @can('delete', $comment)
+                            <li class="text-left hover:bg-gray-100 transition font-semibold duration-150 py-2">
+                                <a href="" class="px-5 font-bold inline-block"
+                                   @click.prevent.stop="showDialog = false; Livewire.emit('setDeleteComment', {{$comment->id}}); $dispatch('custom-show-delete-comment', {{$comment->id}})">Delete comment</a></li>
+                        @endcan
                 </ul>
             </button>
         </div>

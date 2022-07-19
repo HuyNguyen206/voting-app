@@ -28,7 +28,7 @@
                  initNotification()
             @endif
 "
-         class="fixed bottom-0 right-0 bg-white rounded-xl shadow-lg border px-6 py-5 mx-6 my-8 max-w-sm w-full">
+         class="fixed bottom-0 right-0 bg-white rounded-xl shadow-lg border px-6 py-5 mx-6 my-8 max-w-sm w-full z-30">
         <div class="flex justify-between">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="text-green mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

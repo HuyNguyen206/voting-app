@@ -130,6 +130,16 @@ class IdeaPolicy
 
     public function editCommentOfIdea(User $user, Idea $idea)
     {
+        return $this->ownCommentOfIdea($idea, $user);
+    }
+
+    public function deleteCommentOfIdea(User $user, Idea $idea)
+    {
+        return $this->ownCommentOfIdea($idea, $user);
+    }
+
+    private function ownCommentOfIdea(Idea $idea, User $user)
+    {
         return $idea->comments()->where(function (Builder $builder) use ($user){
             $builder->where('user_id', $user->id);
         })->exists();

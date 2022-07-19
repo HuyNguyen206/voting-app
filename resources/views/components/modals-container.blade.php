@@ -21,3 +21,7 @@
 @can('editCommentOfIdea', $idea)
     <livewire:edit-comment />
 @endcan
+
+@auth
+    <livewire:delete-comment />
+@endauth
