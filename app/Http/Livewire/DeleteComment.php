@@ -28,6 +28,7 @@ class DeleteComment extends Component
         $this->authorize('delete', $comment = Comment::findOrFail($this->commentId));
         $comment->delete();
         $this->emitTo(IdeaComments::class, 'updateIdea');
+        $this->emitTo(IdeaShow::class, 'updateIdea');
         $this->dispatchBrowserEvent('delete-comment');
     }
 }

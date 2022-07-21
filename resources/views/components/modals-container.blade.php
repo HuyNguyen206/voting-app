@@ -18,9 +18,9 @@
     <livewire:mark-idea-as-not-spam :idea="$idea"/>
 @endcan
 
-@can('editCommentOfIdea', $idea)
+@auth
     <livewire:edit-comment />
-@endcan
+@endauth
 
 @auth
     <livewire:delete-comment />
