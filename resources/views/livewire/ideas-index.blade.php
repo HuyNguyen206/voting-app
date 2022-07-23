@@ -15,6 +15,7 @@
                 <option value="my_ideas">My ideas</option>
                 @admin
                 <option value="most_spam_idea">Most Spam idea</option>
+                <option value="most_spam_comment">Most Spam comment</option>
                 @endadmin
             </select>
         </div>

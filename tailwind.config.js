@@ -37,7 +37,7 @@ module.exports = {
                 160: '40rem'
             },
             maxWidth:{
-                custom: '62.5rem'
+                custom: '65.5rem'
             },
             fontFamily: {
                 sans: ['Open Sans', ...defaultTheme.fontFamily.sans],

@@ -8,7 +8,7 @@ class IdeaComment extends Component
 {
     public $comment;
     public $idea;
-    protected $listeners = ['updateIdea'];
+    protected $listeners = ['updateIdea', 'updateComment'];
 
     public function render()
     {
@@ -18,5 +18,10 @@ class IdeaComment extends Component
     public function updateIdea()
     {
         $this->idea->refresh();
+    }
+
+    public function updateComment()
+    {
+        $this->comment->refresh();
     }
 }

@@ -68,6 +68,14 @@ class IdeasIndex extends Component
                    case 'top_voted':
                         $builder->orderByDesc('votedUsersCount');
                         break;
+                   case 'most_spam_comment':
+                        $builder->whereHas('comments', function (Builder $builder) {
+                            $builder->where('spam_reports', '>=', 1)
+                                ->orderByDesc('spam_reports');
+                        })->withCount(['comments as commentCount' => function (Builder $builder) {
+                            $builder->where('spam_reports', '>=', 1);
+                        }])->orderByDesc('commentCount');
+                        break;
                 }
             });
 //        if($filter === 'top_voted') {

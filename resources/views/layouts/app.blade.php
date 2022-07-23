@@ -45,7 +45,7 @@
               </a>
           </div>
       </header>
-           <main class="container mx-auto max-w-custom lg:flex-row flex flex-col">
+           <main class="container mx-auto max-w-custom lg:flex-row flex flex-col lg:space-x-6">
                <div class="bg-gray-background">
                    <div class="bg-white px-2 py-4 rounded-xl shadow-md mt-6 w-70 lg:mr-5 mx-auto px-2 flex flex-col items-center py-4 lg:sticky lg:top-9">
                            <div class="text-center">

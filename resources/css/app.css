@@ -3,11 +3,11 @@
 @import 'tailwindcss/utilities';
 
 .comments-container:before {
-    background: #a4aeba;
+    background: #a4aeba70;
     content: "";
     display: block;
     height: 100%;
-    left: -23px;
+    left: -24px;
     position: absolute;
     top: 0;
     width: 3px;
@@ -29,9 +29,9 @@
     height: 30px;
     border-radius: 38px;
     border: 7px solid white;
-    box-shadow: 4px 4px 15px 0 rgba(36, 37, 38, 0.08);
-    left: -41px;
-    background: theme('colors.purple');
+    box-shadow: 4px 4px 15px 0 rgb(36 37 38 / 8%);
+    left: -40px;
+    background: #8b60ed;
     opacity: 1;
 }
 
