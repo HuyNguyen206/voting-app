@@ -1,16 +1,16 @@
 <div x-transition
-     class="comment relative transition duration-500 @if($isAdmin = $comment->user->isAdmin()) is-admin border-blue border-2 @endif rounded-xl bg-white">
+     class="comment relative transition duration-500 @if($commenterIsAdmin = $comment->user->isAdmin())) is-admin border-blue border-2 @endif rounded-xl bg-white">
     <div class="flex">
         <div class="ml-4 flex px-5 py-8">
             <a class="flex flex-none flex-col items-center justify-between">
                 <img src="{{$comment->user->avatar()}}" class="w-14 h-14 rounded-xl" alt="">
-                @if($isAdmin)
+                @if($commenterIsAdmin)
                 <span class="text-blue mt-2">ADMIN</span>
                 @endif
             </a>
             <div class="ml-4">
-                @if($isAdmin)
-                    <h4 class="uppercase font-semibold text-xl">Change by admin</h4>
+                @if($comment->is_update_status)
+                    <h4 class="uppercase font-semibold text-xl text-blue">Status change to Under consideration</h4>
                 @endif
                 <p class="line-clamp-3">
                     @admin
@@ -28,7 +28,7 @@
 
     <div class="flex justify-between items-center  px-5 py-2">
         <div class="flex items-center text-xs space-x-4 ml-4 flex px-5 py-4">
-            <span class="font-semibold">{{$comment->user->name}}</span>
+            <span class="font-semibold @if($commenterIsAdmin) text-blue @endif">{{$comment->user->name}}</span>
             <span class="text-2xl text-gray-300">•</span>
             @if($comment->user_id === $idea->user_id)
                 <div class="rounded-full border bg-gray-100 px-3 py-1">OP</div>
