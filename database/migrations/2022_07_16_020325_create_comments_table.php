@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->boolean('is_update_status')->default(false);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('idea_id')->constrained();
+            $table->foreignId('status_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

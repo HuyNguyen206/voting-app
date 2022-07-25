@@ -21,4 +21,19 @@ class Comment extends Model
         return $this->belongsTo(Idea::class);
     }
 
+    public function getStatusChange()
+    {
+        if($this->is_update_status
+//            && $this->user->isAdmin()
+        ) {
+            return "Status was changed to {$this->status->name}";
+        }
+        return null;
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
 }

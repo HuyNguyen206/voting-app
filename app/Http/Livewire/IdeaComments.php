@@ -14,11 +14,11 @@ class IdeaComments extends Component
 
     public function mount(Idea $idea)
     {
-        $this->idea;
+        $this->idea = $idea;
     }
     public function render()
     {
-        $comments = $this->idea->comments()->with('user')->paginate()->withQueryString();
+        $comments = $this->idea->comments()->with(['user', 'status'])->paginate()->withQueryString();
         return view('livewire.idea-comments', compact('comments'));
     }
 

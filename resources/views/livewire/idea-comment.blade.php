@@ -10,7 +10,7 @@
             </a>
             <div class="ml-4">
                 @if($comment->is_update_status)
-                    <h4 class="uppercase font-semibold text-xl text-blue">Status change to Under consideration</h4>
+                    <h4 class="uppercase font-semibold text-xl text-blue">{{$comment->getStatusChange()}}</h4>
                 @endif
                 <p class="line-clamp-3">
                     @admin
