@@ -39,38 +39,35 @@ class StatusFillterTest extends TestCase
     {
         $consider = Status::factory()->create([
             'name' => 'Considering',
-            'class' => 'bg-purple text-white'
         ]);
         Idea::factory(5)->create([
             'status_id' => $consider
         ]);
         $this->get(route('ideas.index', ['status' => 'considering']))
-            ->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-purple text-white">Considering</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-green text-white">Implemented</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-yellow text-white">In Progress</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-red text-white">Closed</button>', false);
+            ->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-considering">Considering</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-implemented">Implemented</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-in-progress">In Progress</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-closed">Closed</button>', false);
 
 
         $implemented = Status::factory()->create([
             'name' => 'Implemented',
-            'class' => 'bg-green text-white'
         ]);
         Idea::factory(5)->create([
             'status_id' => $implemented
         ]);
 
         $this->get(route('ideas.index', ['status' => 'implemented']))
-            ->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-green text-white">Implemented</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-purple text-white">Considering</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-yellow text-white">In Progress</button>', false)
-            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-red text-white">Closed</button>', false);
+            ->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-implemented">Implemented</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-considering">Considering</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-in-progress">In Progress</button>', false)
+            ->assertDontSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-closed">Closed</button>', false);
     }
 
     public function test_show_page_does_not_show_selected()
     {
         $consider = Status::factory()->create([
             'name' => 'Considering',
-            'class' => 'bg-purple text-white'
         ]);
        $ideas = Idea::factory(5)->create([
             'status_id' => $consider
@@ -84,7 +81,6 @@ class StatusFillterTest extends TestCase
     {
         $consider = Status::factory()->create([
             'name' => 'Considering',
-            'class' => 'bg-purple text-white'
         ]);
        $ideas = Idea::factory(5)->create([
             'status_id' => $consider

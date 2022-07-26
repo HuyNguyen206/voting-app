@@ -49,7 +49,7 @@
                 <span class="font-semibold">{{$idea->commentsCount}} {{Str::plural('comment', $idea->commentsCount)}} </span>
             </div>
             <div class="flex space-x-6" x-data="{showDialog:false}">
-                <button class="px-6 py-2 font-semibold uppercase rounded-xl {{$idea->status->class}}">{{$idea->status->name}}</button>
+                <button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-{{Str::kebab($idea->status->name)}}">{{$idea->status->name}}</button>
             </div>
             <div class="lg:hidden flex justify-start items-center border-r border-gray-100 py-8">
                 <div class="text-center">

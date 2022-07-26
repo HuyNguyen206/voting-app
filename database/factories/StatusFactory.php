@@ -15,7 +15,6 @@ class StatusFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'class' => $this->faker->words(3, true),
         ];
     }
 }

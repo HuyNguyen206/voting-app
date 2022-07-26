@@ -24,7 +24,7 @@
     width: 14px;
 }
 
-.is-admin::before{
+.is-admin::before {
     width: 30px;
     height: 30px;
     border-radius: 38px;
@@ -35,6 +35,26 @@
     opacity: 1;
 }
 
- [x-cloak] {
-     display: none !important;
- }
+[x-cloak] {
+    display: none !important;
+}
+
+.status-idea-open, .status-open:before {
+    @apply bg-gray-200
+}
+
+.status-idea-considering, .status-considering:before {
+    @apply bg-purple text-white
+}
+
+.status-idea-in-progress, .status-in-progress:before {
+    @apply bg-yellow text-white
+}
+
+.status-idea-implemented, .status-implemented:before {
+    @apply bg-green text-white
+}
+
+.status-idea-closed, .status-closed:before {
+    @apply bg-red text-white
+}

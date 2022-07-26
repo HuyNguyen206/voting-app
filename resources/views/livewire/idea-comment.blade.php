@@ -1,10 +1,10 @@
 <div x-transition
-     class="comment relative transition duration-500 @if($commenterIsAdmin = $comment->user->isAdmin())) is-admin border-blue border-2 @endif rounded-xl bg-white">
+     class="comment relative transition duration-500 @if($comment->is_update_status) status-{{Str::kebab($comment->status->name)}} is-admin border-blue border-2 @endif rounded-xl bg-white">
     <div class="flex">
         <div class="ml-4 flex px-5 py-8">
             <a class="flex flex-none flex-col items-center justify-between">
                 <img src="{{$comment->user->avatar()}}" class="w-14 h-14 rounded-xl" alt="">
-                @if($commenterIsAdmin)
+                @if($commenterIsAdmin = $comment->user->isAdmin())
                 <span class="text-blue mt-2">ADMIN</span>
                 @endif
             </a>

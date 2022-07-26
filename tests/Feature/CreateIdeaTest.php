@@ -59,7 +59,7 @@ class CreateIdeaTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $category = Category::factory()->create();
-        $status = Status::factory()->create(['name' => 'Open', 'class' => 'test']);
+        $status = Status::factory()->create(['name' => 'Open']);
         $response = Livewire::actingAs($user = User::factory()->create())
             ->test(CreateIdea::class)
             ->set('title', 'test')
@@ -83,7 +83,7 @@ class CreateIdeaTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $category = Category::factory()->create();
-        $status = Status::factory()->create(['name' => 'Open', 'class' => 'test']);
+        $status = Status::factory()->create(['name' => 'Open']);
         $response = Livewire::actingAs($user = User::factory()->create())
             ->test(CreateIdea::class)
             ->set('title', 'test')

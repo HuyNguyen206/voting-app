@@ -19,7 +19,6 @@ class ShowIdeasTest extends TestCase {
 
         $consideringStatus = Status::create([
             'name' => 'Considering',
-            'class' => 'bg-purple text-white'
         ]);
         $ideaOne = Idea::factory()->create(['status_id' => $openStatus->id]);
         $ideaTwo = Idea::factory()->create(['status_id' => $consideringStatus->id]);
@@ -32,8 +31,8 @@ class ShowIdeasTest extends TestCase {
         $response->assertSee($ideaOne->category->name);
         $response->assertSee($ideaTwo->category->name);
 
-        $response->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-gray-300">Open</button>', false);
-        $response->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl bg-purple text-white">Considering</button>', false);
+        $response->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-open">Open</button>', false);
+        $response->assertSee('<button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-considering">Considering</button>', false);
     }
 
     public function test_show_correct_idea_on_page()
@@ -88,7 +87,6 @@ class ShowIdeasTest extends TestCase {
     {
         $openStatus = Status::create([
             'name' => 'Open',
-            'class' => 'bg-gray-300'
         ]);
 
         return $openStatus;
@@ -101,7 +99,6 @@ class ShowIdeasTest extends TestCase {
     {
         $openStatus = Status::create([
             'name' => 'Implemented',
-            'class' => 'bg-green text-white'
         ]);
 
         return $openStatus;
@@ -113,7 +110,6 @@ class ShowIdeasTest extends TestCase {
 
         $consideringStatus = Status::create([
             'name' => 'Considering',
-            'class' => 'bg-purple text-white'
         ]);
         $category = Category::factory()->create([
             'name' => 'PHP'

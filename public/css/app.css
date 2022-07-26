@@ -1528,7 +1528,7 @@ select {
     top: 57px;
     width: 14px;
 }
-.is-admin::before{
+.is-admin::before {
     width: 30px;
     height: 30px;
     border-radius: 38px;
@@ -1539,8 +1539,36 @@ select {
     opacity: 1;
 }
 [x-cloak] {
-     display: none !important;
- }
+    display: none !important;
+}
+.status-idea-open, .status-open:before {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+.status-idea-considering, .status-considering:before {
+  --tw-bg-opacity: 1;
+  background-color: rgb(139 96 237 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.status-idea-in-progress, .status-in-progress:before {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 199 60 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.status-idea-implemented, .status-implemented:before {
+  --tw-bg-opacity: 1;
+  background-color: rgb(26 171 139 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.status-idea-closed, .status-closed:before {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 69 79 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
 .hover\:border-gray-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(163 163 163 / var(--tw-border-opacity));

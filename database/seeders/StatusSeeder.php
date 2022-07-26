@@ -19,23 +19,18 @@ class  StatusSeeder extends Seeder
         Status::query()->insert([
             [
                 'name' => 'Open',
-                'class' => 'bg-gray-300'
             ],
             [
                 'name' => 'Considering',
-                'class' => 'bg-purple text-white'
             ],
             [
                 'name' => 'In Progress',
-                'class' => 'bg-yellow text-white'
             ],
             [
                 'name' => 'Implemented',
-                'class' => 'bg-green text-white'
             ],
             [
                 'name' => 'Closed',
-                'class' => 'bg-red text-white'
             ]
         ]);
     }
