@@ -46,7 +46,7 @@
                 <span class="text-2xl text-gray-300">&bull;</span>
                 <span class="text-gray-400">{{$idea->category->name}}</span>
                 <span class="text-2xl text-gray-300">&bull;</span>
-                <span class="font-semibold">{{$idea->commentsCount}} {{Str::plural('comment', $idea->commentsCount)}} </span>
+                <span wire:ignore class="font-semibold">{{$idea->commentsCount}} {{Str::plural('comment', $idea->commentsCount)}} </span>
             </div>
             <div class="flex space-x-6" x-data="{showDialog:false}">
                 <button class="px-6 py-2 font-semibold uppercase rounded-xl status-idea-{{Str::kebab($idea->status->name)}}">{{$idea->status->name}}</button>

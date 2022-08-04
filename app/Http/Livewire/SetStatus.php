@@ -41,7 +41,7 @@ class SetStatus extends Component {
         }
         $this->idea->comments()->create([
             'user_id' => $user->id,
-            'body' => $this->description,
+            'body' => $this->description ?? 'No comment was added',
             'is_update_status' => 1,
             'status_id' => $this->status,
         ]);

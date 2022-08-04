@@ -81,7 +81,7 @@ class UserTest extends TestCase
 
     }
 
-    public function test_can_set_status_correctly()
+    public function test_can_set_status_correctly_no_comment()
     {
         Status::factory(5)->create();
         $new = Status::factory()->create();
@@ -97,6 +97,27 @@ class UserTest extends TestCase
             ->assertEmittedTo(IdeaShow::class, 'updateIdea');
 //        Livewire::actingAs($user)->test(IdeaShow::class, ['idea' => Idea::factory()->create()])->assertDontSeeHtml('<form wire:submit.prevent="updateIdea" class="px-2 py-4" action="">');
         $this->assertDatabaseHas('ideas', ['id' => $idea->id, 'status_id' => $old->id]);
+        $this->assertDatabaseHas('comments', ['status_id' => $old->id, 'user_id' => $admin->id, 'body' => 'No comment was added']);
+    }
+
+    public function test_can_set_status_correctly_with_comment()
+    {
+        Status::factory(5)->create();
+        $new = Status::factory()->create();
+        $old = Status::factory()->create();
+        $admin =  User::factory()->create([
+            'email' => 'nguyenlehuyuit@gmail.com'
+        ]);
+//        $this->actingAs($user)->get(route('ideas.show', Idea::factory()->create(['status_id' => $new->id])->slug))
+//            ->assertDontSeeLivewire(SetStatus::class);
+        Livewire::actingAs($admin)->test(SetStatus::class, ['idea' => $idea = Idea::factory()->create(['status_id' => $new->id])])
+            ->set('status', $old->id)
+            ->set('description', 'this is test')
+            ->call('updateIdea')
+            ->assertEmittedTo(IdeaShow::class, 'updateIdea');
+//        Livewire::actingAs($user)->test(IdeaShow::class, ['idea' => Idea::factory()->create()])->assertDontSeeHtml('<form wire:submit.prevent="updateIdea" class="px-2 py-4" action="">');
+        $this->assertDatabaseHas('ideas', ['id' => $idea->id, 'status_id' => $old->id]);
+        $this->assertDatabaseHas('comments', ['status_id' => $old->id, 'user_id' => $admin->id, 'body' => 'this is test']);
     }
 
     public function test_can_set_status_correctly_while_notify_all_voters()
