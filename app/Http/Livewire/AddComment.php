@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Notifications\IdeaUpdatedNotification;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,7 +32,7 @@ class AddComment extends Component {
     {
         abort_if(auth()->guest(), Response::HTTP_FORBIDDEN);
         $this->validate();
-        $this->idea->comments()->create([
+        $comment = $this->idea->comments()->create([
             'body' => $this->body,
             'user_id' => auth()->id()
         ]);
@@ -39,5 +40,6 @@ class AddComment extends Component {
         $this->emitTo(IdeaComments::class, 'updateIdea');
         $this->dispatchBrowserEvent('add-comment');
         $this->reset('body');
+        $this->idea->user->notify(new IdeaUpdatedNotification($comment));
     }
 }

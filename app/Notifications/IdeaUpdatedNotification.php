@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -9,25 +10,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Monolog\Logger;
 
 class IdeaUpdatedNotification extends Notification
 {
     use Queueable;
-    private $idea;
-    private $message;
+    public $comment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Idea $idea, User $user)
+    public function __construct(Comment $comment)
     {
-        //
-        \logger('$idea '.json_encode($idea));
-        $this->idea = $idea;
-        $this->message = "The idea {$idea->title} was updated by {$user->name}";
+        $this->comment = $comment;
     }
 
     /**
@@ -50,9 +48,10 @@ class IdeaUpdatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line("$this->message")
-                    ->action('Go to idea',route('ideas.show', $this->idea->slug))
-                    ->line('Thank you for using our application!');
+            ->subject('Voting app: A comment was posted on your idea')
+            ->markdown('mails.idea-updated', [
+                'comment' => $this->comment
+            ]);
     }
 
     /**
@@ -63,8 +62,15 @@ class IdeaUpdatedNotification extends Notification
      */
     public function toArray($notifiable)
     {
+        $commenter = $this->comment->user;
+        $commenterName = Str::ucfirst($commenter->name);
+        $body = htmlspecialchars($this->comment->body) ;
+        $message = "<span class='font-semibold'>$commenterName</span> comment on <span class='font-semibold'>{$this->comment->idea->title}</span>:
+                                                      <span>$body</span>";
         return [
-            'message' => $this->message
+            'message' => $message,
+            'commenterAvatar' => $commenter->avatar(),
+            'linkToIdea' => route('ideas.show', $this->comment->idea->slug)
         ];
     }
 }

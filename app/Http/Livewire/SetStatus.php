@@ -36,15 +36,15 @@ class SetStatus extends Component {
         ]);
         $this->emitTo(IdeaShow::class, 'updateIdea');
         $user = auth()->user();
-        if ($this->notifyUser) {
-               dispatch(new SendEmailNotficationToVoterJob($this->idea, $user));
-        }
-        $this->idea->comments()->create([
+        $comment = $this->idea->comments()->create([
             'user_id' => $user->id,
             'body' => $this->description ?? 'No comment was added',
             'is_update_status' => 1,
             'status_id' => $this->status,
         ]);
+        if ($this->notifyUser) {
+            dispatch(new SendEmailNotficationToVoterJob($comment->load(['user', 'idea'])));
+        }
         $this->emitTo(IdeaComments::class, 'updateIdea');
         $this->dispatchBrowserEvent('idea-updated');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
 use App\Notifications\IdeaUpdatedNotification;
@@ -16,18 +17,19 @@ use Illuminate\Support\Facades\Notification;
 class SendEmailNotficationToVoterJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    public $idea;
-    public $user;
+    /**
+     * @var Comment
+     */
+    private $comment;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Idea $idea, User $user)
+    public function __construct(Comment $comment)
     {
-        //
-        $this->idea = $idea;
-        $this->user = $user;
+        $this->comment = $comment;
     }
 
     /**
@@ -37,9 +39,9 @@ class SendEmailNotficationToVoterJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->idea->votedUsers()->select('name', 'email')
+        $this->comment->idea->votedUsers()->select('name', 'email')
             ->chunk(100, function ($voters) {
-                Notification::send($voters, new IdeaUpdatedNotification($this->idea, $this->user));
+                Notification::send($voters, new IdeaUpdatedNotification($this->comment));
             });
     }
 }
