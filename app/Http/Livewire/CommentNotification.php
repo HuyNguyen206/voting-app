@@ -11,11 +11,14 @@ class CommentNotification extends Component
     public $notifications;
     public $notificationCount;
     public $user;
+    public $isLoading = true;
+    private const MAX_NOTIFICATION_DISPLAY = 5;
 
     public function mount(User $user)
     {
         $this->notifications = collect();
-        $this->notificationCount = $user->loadCount('unreadNotifications as unreadNotificationsCount')->unreadNotificationsCount;
+        $count = $user->unreadNotifications()->count();
+        $this->notificationCount = $count > self::MAX_NOTIFICATION_DISPLAY ? self::MAX_NOTIFICATION_DISPLAY."+" : $count;
     }
 
     public function render()
@@ -25,6 +28,8 @@ class CommentNotification extends Component
 
     public function getNotification()
     {
-        $this->notifications = $this->user->unreadNotifications;
+        sleep(10);
+        $this->notifications = $this->user->unreadNotifications()->latest()->take(self::MAX_NOTIFICATION_DISPLAY)->get();
+        $this->isLoading = false;
     }
 }
