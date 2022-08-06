@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Comment;
 use App\Models\Idea;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +21,12 @@ class IdeaComments extends Component
     public function render()
     {
         $comments = $this->idea->comments()->with(['user', 'status'])->paginate()->withQueryString();
+//        if ($comments->count() < Comment::PAGE_PAGINATION) {
+//            $pageCanHasNewComment = $comments->currentPage();
+//        } else {
+//            $pageCanHasNewComment = $comments->currentPage() + 1;
+//        }
+//        Session::put('page_can_have_new_comment', $pageCanHasNewComment);
         return view('livewire.idea-comments', compact('comments'));
     }
 

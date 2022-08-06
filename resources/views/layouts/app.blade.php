@@ -75,7 +75,7 @@
 
                <div class="lg:w-175 w-full">
                     <livewire:status-filters/>
-                   <div class="mt-8">
+                   <div class="mt-4">
                        {{$slot}}
                    </div>
                </div>

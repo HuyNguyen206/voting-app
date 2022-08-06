@@ -17,7 +17,18 @@ class IdeaUpdatedNotification extends Notification
 {
     use Queueable;
     public $comment;
+//    private $pageCanHaveNewComment;
 
+//    /**
+//     * Create a new notification instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct(Comment $comment, $pageCanHaveNewComment)
+//    {
+//        $this->comment = $comment;
+//        $this->pageCanHaveNewComment = $pageCanHaveNewComment;
+//    }
     /**
      * Create a new notification instance.
      *
@@ -69,8 +80,10 @@ class IdeaUpdatedNotification extends Notification
                                                       <span>$body</span>";
         return [
             'message' => $message,
+            'commentId' => $this->comment->id,
             'commenterAvatar' => $commenter->avatar(),
-            'linkToIdea' => route('ideas.show', $this->comment->idea->slug)
+//            'linkToIdea' => route('ideas.show', ['idea' => $this->comment->idea->slug, 'page' => $this->pageCanHaveNewComment]),
+            'linkToIdea' => route('ideas.show',  $this->comment->idea->slug),
         ];
     }
 }

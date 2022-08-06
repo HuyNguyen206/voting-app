@@ -35,8 +35,8 @@
         @else
             @if($notificationCount)
                 @foreach($notifications as $notification)
-                    <li class="text-left hover:bg-gray-100 transition duration-150 py-2">
-                        <a href="{{$notification->data['linkToIdea']}}" class="px-5 inline-block flex space-x-4">
+                    <li wire:click="markAsRead('{{$notification->id}}')" class="text-left hover:bg-gray-100 transition duration-150 py-2">
+                        <a class="px-5 inline-block flex space-x-4">
                             <img class="rounded-full w-12 h-12" src="{{$notification->data['commenterAvatar']}}"
                                  alt="picture">
                             <div class="flex flex-col space-y-3">
@@ -50,7 +50,7 @@
                     </li>
                 @endforeach
                     <li class="text-left hover:bg-gray-100 transition duration-150 py-2">
-                        <button class="w-full text-center px-2 py-3">Mark all as read</button>
+                        <button wire:click.prevent="markAllAsRead" @click="showDialog = false" class="w-full text-center px-2 py-3">Mark all as read</button>
                     </li>
             @else
                 <div class="flex flex-col justify-center items-center">

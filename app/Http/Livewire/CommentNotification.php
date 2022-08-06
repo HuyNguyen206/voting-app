@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Comment;
 use App\Models\User;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\Notification;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class CommentNotification extends Component
 {
@@ -17,8 +21,7 @@ class CommentNotification extends Component
     public function mount(User $user)
     {
         $this->notifications = collect();
-        $count = $user->unreadNotifications()->count();
-        $this->notificationCount = $count > self::MAX_NOTIFICATION_DISPLAY ? self::MAX_NOTIFICATION_DISPLAY."+" : $count;
+        $this->refreshUnreadNotificationsCount($user);
     }
 
     public function render()
@@ -28,8 +31,39 @@ class CommentNotification extends Component
 
     public function getNotification()
     {
-        sleep(10);
         $this->notifications = $this->user->unreadNotifications()->latest()->take(self::MAX_NOTIFICATION_DISPLAY)->get();
         $this->isLoading = false;
+    }
+
+    public function markAllAsRead()
+    {
+        abort_if(!$this->user, Response::HTTP_FORBIDDEN);
+        $this->user->unreadNotifications->markAsRead();
+        $this->refreshUnreadNotificationsCount($this->user);
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
+    private function refreshUnreadNotificationsCount(User $user): void
+    {
+        $count = $user->unreadNotifications()->count();
+        $this->notificationCount = $count > self::MAX_NOTIFICATION_DISPLAY ? self::MAX_NOTIFICATION_DISPLAY . "+" : $count;
+    }
+
+    public function markAsRead($notificationId)
+    {
+        abort_if(!$this->user, Response::HTTP_FORBIDDEN);
+        $notification = DatabaseNotification::findOrFail($notificationId);
+//        $this->user->unreadNotifications()->where('id', $notificationId)->first();
+        $notification->markAsRead();
+        $commentId = $notification->data['commentId'];
+        session()->flash('scroll_to_comment', $commentId);
+        $comment = Comment::find($commentId);
+        $commentIds = Comment::find($commentId)->idea->comments()->pluck('id');
+        $currentCommentIndex = $commentIds->search($commentId);
+        $page = (int) ($currentCommentIndex / $comment->getPerPage()) + 1;
+        $this->redirect($notification->data['linkToIdea']."?page=$page");
     }
 }

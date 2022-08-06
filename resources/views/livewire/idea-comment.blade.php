@@ -1,4 +1,4 @@
-<div x-transition
+<div id="comment-{{$comment->id}}" x-transition
      class="comment relative transition duration-500 @if($comment->is_update_status) status-{{Str::kebab($comment->status->name)}} is-admin border-blue border-2 @endif rounded-xl bg-white">
     <div class="flex">
         <div class="ml-4 flex px-5 py-8">

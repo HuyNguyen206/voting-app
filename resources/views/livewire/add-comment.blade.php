@@ -23,7 +23,18 @@
               firstComment.scrollIntoView({behavior: 'smooth'})
             }
 
-            })">
+            })
+            @if($commentId = session('scroll_to_comment'))
+                let lastComment = document.querySelector('#comment-{{$commentId}}')
+                console.log(lastComment)
+
+                lastComment.scrollIntoView({behavior: 'smooth'})
+                lastComment.classList.add('bg-green-50')
+                setTimeout(() => {
+                 lastComment.classList.remove('bg-green-50')
+                }, 2000)
+            @endif
+            ">
                 <textarea x-ref="bodyInput" required wire:en wire:model="body" class="border-none w-full rounded-xl bg-gray-100" placeholder="Go ahead, don't be shy. Share your thought..." cols="30" rows="4"></textarea>
                 @error('body')
                 <span class="text-red mt-2">{{$message}}</span>

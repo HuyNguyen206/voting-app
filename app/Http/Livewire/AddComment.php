@@ -40,6 +40,7 @@ class AddComment extends Component {
         $this->emitTo(IdeaComments::class, 'updateIdea');
         $this->dispatchBrowserEvent('add-comment');
         $this->reset('body');
+//        $this->idea->user->notify(new IdeaUpdatedNotification($comment, session('page_can_have_new_comment')));
         $this->idea->user->notify(new IdeaUpdatedNotification($comment));
     }
 }
