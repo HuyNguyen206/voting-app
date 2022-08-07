@@ -1,4 +1,4 @@
-<div x-data="{showDialog : false}" class="relative">
+<div wire:poll="refreshUnreadNotificationsCount" x-data="{showDialog : false}" class="relative">
     <button class="relative" @click.prevent="showDialog = !showDialog
                                             if(showDialog) {
                                             Livewire.emit('getNotification')

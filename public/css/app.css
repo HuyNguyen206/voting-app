@@ -708,6 +708,10 @@ select {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -881,6 +885,9 @@ select {
 }
 .w-4 {
   width: 1rem;
+}
+.w-96 {
+  width: 24rem;
 }
 .max-w-custom {
   max-width: 65.5rem;
@@ -1977,6 +1984,11 @@ select {
   }
 }
 @media (min-width: 768px) {
+
+  .md\:my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 
   .md\:w-96 {
     width: 24rem;

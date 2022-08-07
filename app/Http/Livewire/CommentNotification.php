@@ -46,9 +46,9 @@ class CommentNotification extends Component
      * @param User $user
      * @return void
      */
-    private function refreshUnreadNotificationsCount(User $user): void
+    public function refreshUnreadNotificationsCount(User $user): void
     {
-        $count = $user->unreadNotifications()->count();
+        $count = auth()->user()->unreadNotifications()->count();
         $this->notificationCount = $count > self::MAX_NOTIFICATION_DISPLAY ? self::MAX_NOTIFICATION_DISPLAY . "+" : $count;
     }
 

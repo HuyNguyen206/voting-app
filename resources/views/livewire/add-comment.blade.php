@@ -1,6 +1,6 @@
 <div class="relative" x-data="{showReply : false}" @add-comment.window="showReply = false; $dispatch('custom-show-notification', 'Add comment successfully!')">
-    <button @click="showReply = !showReply; $nextTick(() => {$refs.bodyInput.focus()})" class="mr-2 px-8 h-10 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white">Reply</button>
-    <div x-cloak x-show="showReply" @click.outside.window="showReply = false" x-transition class="mt-3 absolute lg:w-160 w-64 bg-white rounded-xl text-sm z-10 px-2 py-4 shadow-md">
+    <button @click="showReply = !showReply; $nextTick(() => {$refs.bodyInput.focus()})" class="mr-2 md:my-0 my-2 px-8 h-10 placeholder-gray-700 bg-gray-100 rounded-xl bg-blue text-white">Reply</button>
+    <div x-cloak x-show="showReply" @click.outside.window="showReply = false" x-transition class="mt-3 absolute lg:w-160 w-96 bg-white rounded-xl text-sm z-10 px-2 py-4 shadow-md">
         @auth
             <form wire:submit.prevent="addComment" class="px-2 py-4"
             x-init="Livewire.hook('message.processed', (message, component) =>
