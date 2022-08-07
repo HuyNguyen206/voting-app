@@ -6,8 +6,10 @@ use App\Http\Livewire\AddComment;
 use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
+use App\Notifications\IdeaUpdatedNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -64,7 +66,7 @@ class AddCommentsTest extends TestCase
             'user_id' => $user->id,
             'idea_id' => $idea->id
         ]);
-
+        Notification::fake();
         Livewire::actingAs($user)
             ->test(AddComment::class, ['idea' => $idea])
             ->set('body', 'This is test')
@@ -75,6 +77,6 @@ class AddCommentsTest extends TestCase
             'user_id' => $user->id,
             'idea_id' => $idea->id
         ]);
-
+        Notification::assertSentTo($user, IdeaUpdatedNotification::class);
     }
 }
