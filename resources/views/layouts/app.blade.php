@@ -83,6 +83,10 @@
       @if($message = session('success_message'))
           <x-idea-notification :is-redirect="true" display-notification="{{$message}}"/>
       @endif
+
+      @if($message = session('error_message'))
+          <x-idea-notification :is-redirect="true" type="error" display-notification="{{$message}}"/>
+      @endif
       @livewireScripts
     </body>
 </html>

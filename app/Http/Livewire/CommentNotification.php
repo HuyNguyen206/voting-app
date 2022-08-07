@@ -58,12 +58,28 @@ class CommentNotification extends Component
         $notification = DatabaseNotification::findOrFail($notificationId);
 //        $this->user->unreadNotifications()->where('id', $notificationId)->first();
         $notification->markAsRead();
+
+        $this->scrollToComment($notification);
+    }
+
+    /**
+     * @param $notification
+     * @return void
+     */
+    private function scrollToComment($notification): void
+    {
         $commentId = $notification->data['commentId'];
         session()->flash('scroll_to_comment', $commentId);
         $comment = Comment::find($commentId);
-        $commentIds = Comment::find($commentId)->idea->comments()->pluck('id');
+        if (!$comment) {
+            session()->flash('error_message', 'Your comment was removed already!');
+            $this->redirect(route('ideas.index'));
+            return;
+        }
+
+        $commentIds =$comment->idea->comments()->pluck('id');
         $currentCommentIndex = $commentIds->search($commentId);
         $page = (int) ($currentCommentIndex / $comment->getPerPage()) + 1;
-        $this->redirect($notification->data['linkToIdea']."?page=$page");
+        $this->redirect($notification->data['linkToIdea'] . "?page=$page");
     }
 }
