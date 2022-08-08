@@ -16,7 +16,7 @@ class CommentNotification extends Component
     public $notificationCount;
     public $user;
     public $isLoading = true;
-    private const MAX_NOTIFICATION_DISPLAY = 5;
+    public const MAX_NOTIFICATION_DISPLAY = 5;
 
     public function mount(User $user)
     {
