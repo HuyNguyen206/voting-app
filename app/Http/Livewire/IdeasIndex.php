@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\Vote;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -23,6 +24,8 @@ class IdeasIndex extends Component
     {
         $categories = Category::all();
         $ideas = $this->getIdeas($categories);
+        $this->setCurrentUrlPageToIntended($ideas);
+
         return view('livewire.ideas-index', compact('ideas', 'categories'));
     }
 
@@ -83,8 +86,9 @@ class IdeasIndex extends Component
 //        } else {
             $mainQuery->latest();
 //        }
-
-        return $mainQuery->paginate()->withQueryString();
+        $pagination = $mainQuery->paginate()->withQueryString();
+        $this->setCurrentUrlPageToIntended($pagination);
+        return $pagination;
     }
 
     public function updateIdeas($status)
@@ -121,6 +125,18 @@ class IdeasIndex extends Component
     private function shouldRedirectToLoginPage()
     {
       return auth()->guest() && $this->filter === 'my_ideas';
+    }
+
+    /**
+     * @param $mainQuery
+     * @return string
+     */
+    public function setCurrentUrlPageToIntended($pagination)
+    {
+        $currentPage = $pagination->currentPage();
+        $routeUrl = route('ideas.index', ['page' => $currentPage, 'status' => $this->status]);
+//        $currentPageUrl = str_replace("page=$previousPage", "page=$currentPage", url()->previous());
+        redirect()->setIntendedUrl($routeUrl);
     }
 
 }

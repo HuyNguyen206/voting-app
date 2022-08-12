@@ -17,6 +17,7 @@ class IdeaShow extends Component
 
     public function mount(Idea $idea)
     {
+        redirect()->setIntendedUrl(url()->current());
         $this->idea = $idea;
         $this->isVoted = $idea->isVotedByUser(auth()->id());
         $this->statuses = Status::all();

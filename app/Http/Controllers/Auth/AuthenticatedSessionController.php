@@ -44,11 +44,12 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
+        $redirectUrl = session()->pull('url.intended', RouteServiceProvider::HOME);
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->intended($redirectUrl);
     }
 }

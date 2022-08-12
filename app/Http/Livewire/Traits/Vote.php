@@ -7,6 +7,7 @@ trait Vote {
     public function vote()
     {
         if (!$userId = auth()->id()) {
+            redirect()->setIntendedUrl(url()->previous());
             return $this->redirect(route('login'));
         }
         $this->idea->votedUsers()->toggle($userId);
