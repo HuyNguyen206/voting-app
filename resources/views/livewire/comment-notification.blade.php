@@ -54,7 +54,7 @@
                     </li>
             @else
                 <div class="flex flex-col justify-center items-center">
-                    <img style="mix-blend-mode: luminosity" src="{{asset('images/no-ideas.svg')}}" class="w-20"
+                    <img src="{{asset('images/no-ideas.svg')}}" class="w-20 mix-blend-luminosity"
                          alt="No-idea"
                          class="mx-auto">
                     <h3 class="text-gray-400 text-center font-bold mt-6 text-sm">No notification found...</h3>

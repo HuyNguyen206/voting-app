@@ -12,7 +12,7 @@
 
 @else
     <div>
-        <img style="mix-blend-mode: luminosity" src="{{asset('images/no-ideas.svg')}}" alt="No-idea" class="mx-auto">
+        <img src="{{asset('images/no-ideas.svg')}}" alt="No-idea" class="mx-auto mix-blend-luminosity">
         <h3 class="text-gray-400 text-center font-bold mt-6 text-lg">No comment found...</h3>
     </div>
 @endif

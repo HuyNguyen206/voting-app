@@ -8,7 +8,7 @@
      @keydown.escape.window="isShow = false"
      x-show="isShow"
      @custom-show-edit-idea.window="isShow = true;  $nextTick(() => {$refs.titleInput.focus()})"
-     @update-idea.window="isShow = false; $dispatch('custom-show-notification', 'Idea was updated successfully!')">
+     @update-idea.window="isShow = false; $dispatch('custom-show-notification', {'message': 'Idea was updated successfully!', 'is_success':true} )">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
     <div class="fixed z-10 inset-0 overflow-y-auto">

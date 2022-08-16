@@ -7,7 +7,7 @@
      @keydown.escape.window="isShow = false"
      x-show="isShow"
      @custom-show-edit-comment.window="isShow = true;  $nextTick(() => {$refs.bodyInput.focus()})"
-     @edit-comment.window="isShow = false; $dispatch('custom-show-notification', 'Comment was updated successfully!')">
+     @edit-comment.window="isShow = false; $dispatch('custom-show-notification', {'message': 'Comment was updated successfully!', 'is_success':true} )">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
     <div class="fixed z-10 inset-0 overflow-y-auto">

@@ -25,7 +25,7 @@
                             <p class="text-red mb-2">Spam reports: {{$idea->spam_reports}}</p>
                         @endif
                         @endadmin
-                        {{$idea->description}}
+                        {!! nl2br(e($idea->description)) !!}
                     </div>
                 </div>
 

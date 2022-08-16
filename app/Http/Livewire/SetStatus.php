@@ -31,6 +31,11 @@ class SetStatus extends Component {
 
     public function updateIdea()
     {
+        if ($this->idea->status_id === (int) $this->status) {
+            $this->dispatchBrowserEvent('custom-show-notification',
+                ['message' => "This idea already in the status {$this->idea->status->name}",'is_success' => false]);
+            return;
+        }
         $this->idea->update([
             'status_id' => $this->status,
         ]);

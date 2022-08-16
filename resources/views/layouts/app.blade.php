@@ -25,12 +25,15 @@
                   <div class="px-6 py-4">
                       @auth
                           <div class="flex space-x-2">
-                              <div class="flex items-center">
+                              <div class="flex items-center space-x-2">
                                   <a href="{{ url('/dashboard') }}" class="mr-2 text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                                   <form action="{{route('logout')}}" id="logoutForm" method="post">
                                       @csrf
                                   </form>
                                   <a href="" onclick="event.preventDefault();document.getElementById('logoutForm').submit()" class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a>
+                                  <a href="">
+                                      <img src="{{auth()->user()->avatar()}}" class="w-10 h-10 rounded-full" alt="">
+                                  </a>
                               </div>
                               @php
                                  $user = auth()->user();
@@ -46,9 +49,6 @@
                       @endauth
                   </div>
               @endif
-              <a href="">
-                  <img src="{{asset('images/avatar.png')}}" class="w-10 h-10 rounded-full" alt="">
-              </a>
           </div>
       </header>
            <main class="container mx-auto max-w-custom lg:flex-row flex flex-col lg:space-x-6">

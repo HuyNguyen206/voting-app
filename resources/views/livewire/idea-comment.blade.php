@@ -18,7 +18,7 @@
                     <p class="text-red mb-2">Spam reports: {{$comment->spam_reports}}</p>
                 @endif
                 @endadmin
-                {{$comment->body}}
+                    {!! nl2br(e($comment->body)) !!}
                 </p>
             </div>
 
