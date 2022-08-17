@@ -19,7 +19,7 @@ class IdeasIndex extends Component
 
     protected $listeners = ['updateStatusFilter' => 'updateIdeas'];
     public $status, $category = null, $filter, $search;
-    protected $queryString = ['status', 'category', 'filter', 'search'];
+    protected $queryString = ['status', 'category', 'filter', 'search' => ['except' => '']];
     public function render()
     {
         $categories = Category::all();

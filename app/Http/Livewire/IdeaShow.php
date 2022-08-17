@@ -19,6 +19,7 @@ class IdeaShow extends Component
     {
         redirect()->setIntendedUrl(url()->current());
         $this->idea = $idea;
+        $this->idea->loadCount(['votedUsers as votedUsersCount']);
         $this->isVoted = $idea->isVotedByUser(auth()->id());
         $this->statuses = Status::all();
     }

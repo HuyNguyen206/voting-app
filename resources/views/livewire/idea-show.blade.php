@@ -108,7 +108,7 @@
         </div>
         <div class="hidden lg:flex justify-end items-center border-r border-gray-100 px-5 py-8">
             <div class="text-center mr-2">
-                <div class="font-semibold text-2xl">{{$idea->votedUsers()->count()}}</div>
+                <div class="font-semibold text-2xl">{{$idea->votedUsersCount}}</div>
                 <div class="{{$isVoted ? 'text-blue' : 'text-gray-500'}}">Votes</div>
             </div>
             <div>
