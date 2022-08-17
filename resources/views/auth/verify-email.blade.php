@@ -36,4 +36,7 @@
             </form>
         </div>
     </x-auth-card>
+    <x-slot name="title">
+        Verify email
+    </x-slot>
 </x-guest-layout>

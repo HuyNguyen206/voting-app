@@ -8,4 +8,7 @@
     <x-modals-container :idea="$idea"/>
 
     <livewire:idea-comments :idea="$idea"/>
+    <x-slot name="title">
+       {{$idea->title}}
+    </x-slot>
 </x-app-layout>

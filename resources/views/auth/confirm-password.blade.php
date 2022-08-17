@@ -33,4 +33,7 @@
             </div>
         </form>
     </x-auth-card>
+    <x-slot name="title">
+        Confirm password
+    </x-slot>
 </x-guest-layout>

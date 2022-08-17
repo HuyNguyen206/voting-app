@@ -33,4 +33,7 @@
             </div>
         </form>
     </x-auth-card>
+    <x-slot name="title">
+        Forget password
+    </x-slot>
 </x-guest-layout>

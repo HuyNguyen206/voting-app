@@ -56,4 +56,7 @@
             </div>
         </form>
     </x-auth-card>
+    <x-slot name="title">
+        Register
+    </x-slot>
 </x-guest-layout>

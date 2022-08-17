@@ -91,17 +91,17 @@ class ShowCommentsTest extends TestCase {
     public function test_list_of_comments_pagination_work()
     {
         $idea = Idea::factory()->create();
-        $idea->comments()->saveMany(Comment::factory(11)->make());
+        $idea->comments()->saveMany(Comment::factory(21)->make());
         $comments = Comment::all();
         $commentOne = $comments->first();
-        $commentElevent = $comments->last();
+        $comment21 = $comments->last();
 //
         $pageOne = $this->get(route('ideas.show', $idea->slug));
         $pageOne->assertSee($commentOne->body);
-        $pageOne->assertDontSee($commentElevent->body);
+        $pageOne->assertDontSee($comment21->body);
 
         $pageTwo = $this->get(route('ideas.show', [$idea->slug, 'page' => 2]));
-        $pageTwo->assertSee($commentElevent->body);
+        $pageTwo->assertSee($comment21->body);
         $pageTwo->assertDontSee($commentOne->body);
     }
 }
